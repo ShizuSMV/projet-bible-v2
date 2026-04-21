@@ -1,0 +1,31 @@
+// ============================================================
+// MIXINS
+// ============================================================
+
+@mixin size($w: auto, $h: auto) {
+	width: $w;
+	height: $h;
+}
+
+@mixin flex-custom($direction: row, $justify: center, $align: center) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin flex-center($direction: row, $gap: 0) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: center;
+	align-items: center;
+	gap: $gap;
+}
+
+@mixin transition($props, $duration: 0.3s) {
+	transition: $props $duration;
+}
+
+@mixin radius($value: $radius) {
+	border-radius: $value;
+}

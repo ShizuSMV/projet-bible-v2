@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>La parole de Dieu</title>
+		<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+		<link rel="stylesheet" href="css/index.css" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+		<script src="js/modale.js" defer></script>
+		<script src="js/search.js" defer></script>
+		<script src="js/verset-du-jour.js" defer></script>
+		<script src="js/accordion.js" defer></script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header class="header">
+			<div id="top"></div>
+
+			<a href="#top" class="header__logo">
+				<div class="header__cross-bars" aria-hidden="true">
+					<div class="header__cross-bar-1"></div>
+					<div class="header__cross-bar-2"></div>
+					<div class="header__cross-bar-3"></div>
+					<div class="header__cross-bar-4"></div>
+					<div class="header__cross-bar-5"></div>
+					<div class="header__cross-bar-6"></div>
+				</div>
+				<h1 class="header__title header__title-top">
+					<span class="header__title-la">La</span>
+					<span class="header__title-parole">Parole</span>
+				</h1>
+				<h2 class="header__title header__title-bottom">
+					<span class="header__title-de">De</span>
+					<span class="header__title-dieu">Dieu</span>
+				</h2>
+			</a>
+
+			<nav class="header__nav">
+				<ul class="header__nav-list">
+					<li class="header__list-container">
+						<a class="header__list-link" href="#top">Accueil</a>
+					</li>
+					<li class="header__list-container">
+						<a class="header__list-link" id="create-account-link" href="#">Créez un compte</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Modale compte -->
+		<section id="account-section" class="account-section">
+			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
+			<form class="account-form"></form>
+		</section>
+
+		<!-- MAIN -->
+		<main class="main">
+			<section id="accueil" class="main__section-accueil">
+				<h2 class="main__accueil-title">Bienvenue !</h2>
+				<p class="main__accueil-p">Explorez les Écritures saintes à votre rythme. Que vous soyez en quête de sagesse, de réconfort ou de connaissance, la Parole est là pour vous guider.</p>
+			</section>
+
+			<section id="recherche" class="main__section-recherche">
+				<div class="main__recherche-bar-container">
+					<input type="text" class="main__recherche-bar" placeholder="Chercher un livre, chapitre ou verset..." />
+					<button class="main__recherche-icon" type="button" aria-label="Rechercher">🔍</button>
+				</div>
+			</section>
+
+			<section class="main__section-verset">
+				<p class="main__verset-label">Verset du jour</p>
+				<p class="main__verset-ref">Jean 3:16</p>
+				<blockquote class="main__verset-text">
+					« Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque croit en lui ne périsse point, mais qu'il ait la vie éternelle. »
+				</blockquote>
+			</section>
+
+			<section class="main__section-intro">
+				<p class="main__intro-stats">
+					<span class="main__intro-stat">
+						<span class="main__intro-number">39</span>
+						<span class="main__intro-label">livres — Ancien Testament</span>
+					</span>
+					<span class="main__intro-sep">•</span>
+					<span class="main__intro-stat">
+						<span class="main__intro-number">27</span>
+						<span class="main__intro-label">livres — Nouveau Testament</span>
+					</span>
+				</p>
+			</section>
+
+			<section id="livres" class="main__section-books">
+				<!-- Ancien Testament -->
+				<details class="main__books-accordion" id="ancien-testament">
+					<summary class="main__books-h2">Ancien Testament</summary>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Pentateuque&testament=Ancien%20Testament">Pentateuque</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Livres%20historiques&testament=Ancien%20Testament">Livres historiques</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Livres%20po%C3%A9tiques&testament=Ancien%20Testament">Livres poétiques</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Grands%20Proph%C3%A8tes&testament=Ancien%20Testament">Grands Prophètes</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Petits%20Proph%C3%A8tes&testament=Ancien%20Testament">Petits Prophètes</a>
+				</details>
+
+				<!-- Nouveau Testament -->
+				<details class="main__books-accordion main__books-accordion--right" id="nouveau-testament">
+					<summary class="main__books-h2">Nouveau Testament</summary>
+					<a class="main__books-h3" href="pages/categorie.html?cat=%C3%89vangiles&testament=Nouveau%20Testament">Évangiles</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Histoire&testament=Nouveau%20Testament">Histoire</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=%C3%89p%C3%AEtres%20de%20Paul&testament=Nouveau%20Testament">Épîtres de Paul</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=%C3%89p%C3%AEtres%20g%C3%A9n%C3%A9rales&testament=Nouveau%20Testament">Épîtres générales</a>
+					<a class="main__books-h3" href="pages/categorie.html?cat=Proph%C3%A9tie&testament=Nouveau%20Testament">Prophétie</a>
+				</details>
+			</section>
+
+			<section class="main__section-communaute">
+				<a href="pages/communaute.html" class="main__communaute-btn">
+					<span class="main__communaute-btn-icon">✦</span>
+					Rencontrer des gens
+					<span class="main__communaute-btn-icon">✦</span>
+				</a>
+				<p class="main__communaute-sub">Partagez des versets, échangez et grandissez ensemble</p>
+			</section>
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="footer__top">
+				<div class="footer__brand">
+					<span class="footer__brand-name">La Parole de Dieu</span>
+					<span class="footer__brand-tagline">Explorez les Écritures saintes</span>
+				</div>
+
+				<div class="footer__columns">
+					<div class="footer__col">
+						<span class="footer__col-title">Navigation</span>
+						<a href="#top" class="footer__link">Accueil</a>
+						<a href="#ancien-testament" class="footer__link">Ancien Testament</a>
+						<a href="#nouveau-testament" class="footer__link">Nouveau Testament</a>
+						<a href="index.html#recherche" class="footer__link">Recherche</a>
+					</div>
+
+					<div class="footer__col">
+						<span class="footer__col-title">Communauté</span>
+						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link">À propos</a>
+					</div>
+
+					<div class="footer__col">
+						<span class="footer__col-title">Légal</span>
+						<a href="pages/mentions-legales.html" class="footer__link">Mentions légales</a>
+						<a href="pages/confidentialite.html" class="footer__link">Politique de confidentialité</a>
+						<a href="pages/cgu.html" class="footer__link">CGU</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer__divider"></div>
+
+			<div class="footer__bottom">
+				<span class="footer__copy">© 2026 La Parole de Dieu</span>
+				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
+			</div>
+		</footer>
+	</body>
+</html>

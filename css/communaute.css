@@ -1,0 +1,482 @@
+.communaute {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 6vw 80px;
+}
+.communaute__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding-bottom: 48px;
+}
+.communaute__hero-label {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.6rem;
+  color: #d4af37;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.communaute__hero-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.8rem;
+  color: #fafafa;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+.communaute__hero-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  color: #fafafa;
+  opacity: 0.45;
+  font-style: italic;
+  margin: 0;
+}
+.communaute__divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+  margin: 0 0 48px;
+}
+.communaute__section-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.7rem;
+  color: #d4af37;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin: 0 0 24px;
+}
+.communaute__feed {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+.communaute__card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 8px;
+  padding: 20px 24px;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+.communaute__card:hover {
+  background: rgba(212, 175, 55, 0.04);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+}
+.communaute__card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.communaute__card-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.communaute__card-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.65rem;
+  color: #d4af37;
+}
+.communaute__card-username {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  color: #fafafa;
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+}
+.communaute__card-ref {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.6rem;
+  color: #d4af37;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+.communaute__card-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  color: #fafafa;
+  opacity: 0.8;
+  line-height: 1.75;
+  font-style: italic;
+  margin: 0 0 12px;
+}
+.communaute__card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.communaute__card-action {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.8rem;
+  color: #fafafa;
+  opacity: 0.35;
+  cursor: pointer;
+  transition: opacity 0.2s, color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.communaute__card-action:hover {
+  opacity: 1;
+  color: #d4af37;
+}
+.communaute__membres-carousel {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 60px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.communaute__membres-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: scroll-membres 60s linear infinite;
+}
+@keyframes scroll-membres {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.communaute__membre-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 12px;
+  min-width: 120px;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: background 0.25s, border-color 0.25s;
+  text-decoration: none;
+}
+.communaute__membre-card:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.communaute__membre-banner {
+  width: calc(100% + 32px);
+  margin: 0 -16px;
+  height: 110px;
+  background: linear-gradient(135deg, #2a2410 0%, #1a1a1a 100%);
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.communaute__membre-banner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.75));
+  pointer-events: none;
+}
+.communaute__membre-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1rem;
+  color: #d4af37;
+  overflow: hidden;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
+.communaute__membre-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fafafa;
+  text-align: center;
+  white-space: nowrap;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.communaute__membre-stats {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 8px 2px;
+  width: 100%;
+}
+.communaute__membre-stat {
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  color: #fafafa;
+  opacity: 0.45;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.communaute__membre-stat strong {
+  color: #fafafa;
+  opacity: 1;
+  font-weight: 500;
+}
+.communaute__membre-stat-max {
+  opacity: 0.35;
+  font-size: 0.65rem;
+}
+.communaute__membre-stat--date {
+  font-size: 0.65rem;
+  opacity: 0.3;
+  margin-top: 2px;
+}
+
+.profil-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.28s;
+}
+.profil-modal-overlay--visible {
+  opacity: 1;
+}
+
+.profil-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  z-index: 1100;
+  background: linear-gradient(135deg, #1d1d1d 0%, #141414 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.08);
+  padding: 36px 28px 28px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 280px;
+  max-width: 360px;
+  width: 90vw;
+  opacity: 0;
+  transition: opacity 0.28s, transform 0.28s;
+}
+.profil-modal--visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+.profil-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: rgba(212, 175, 55, 0.5);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.profil-modal__close:hover {
+  color: #d4af37;
+}
+.profil-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.profil-modal__banner {
+  width: calc(100% + 56px);
+  height: 100px;
+  background: linear-gradient(135deg, #2a2410 0%, #1a1a1a 100%);
+  border-radius: 14px 14px 0 0;
+  margin: -36px -28px 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.profil-modal__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  border: 3px solid #141414;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.6rem;
+  color: #d4af37;
+  position: relative;
+  bottom: -36px;
+}
+.profil-modal__name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fafafa;
+  margin: 40px 0 0;
+  letter-spacing: 0.02em;
+}
+.profil-modal__since {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  color: #fafafa;
+  opacity: 0.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.profil-modal__bio {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #fafafa;
+  opacity: 0.55;
+  text-align: center;
+  line-height: 1.6;
+  margin: 4px 0 0;
+  white-space: pre-wrap;
+}
+.profil-modal__divider {
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+  margin: 8px 0;
+}
+.profil-modal__stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+.profil-modal__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.profil-modal__stat-icon {
+  font-size: 1.1rem;
+}
+.profil-modal__stat-value {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #d4af37;
+  line-height: 1;
+}
+.profil-modal__stat-max {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.7rem;
+  color: #fafafa;
+  opacity: 0.3;
+  font-weight: 400;
+  margin-left: 2px;
+}
+.profil-modal__stat-label {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.72rem;
+  color: #fafafa;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.communaute__cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 40px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  background: rgba(212, 175, 55, 0.02);
+}
+.communaute__cta-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1rem;
+  color: #fafafa;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.communaute__cta-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  color: #fafafa;
+  opacity: 0.4;
+  font-style: italic;
+  margin: 0;
+}
+.communaute__cta-btn {
+  display: inline-block;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #d4af37;
+  text-decoration: none;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 12px 32px;
+  border-radius: 2px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.communaute__cta-btn:hover {
+  background: rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/*# sourceMappingURL=communaute.css.map */

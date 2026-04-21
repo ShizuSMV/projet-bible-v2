@@ -1,0 +1,50 @@
+// ============================================================
+// RESPONSIVE — Desktop (min-width: 600px)
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+@media (min-width: 600px) {
+	.header__title {
+		font-size: 2.4rem;
+	}
+
+	.main {
+		max-width: 900px;
+		padding: 0 16px;
+	}
+
+	.main__section-accueil,
+	.main__section-recherche,
+	.main__section-books {
+		padding: 32px 24px;
+		margin-bottom: 32px;
+
+		h2 {
+			font-size: 1.5rem;
+			margin-bottom: 18px;
+		}
+	}
+
+	.main__books-submenu {
+		gap: 16px;
+
+		li {
+			padding: 10px 22px;
+			font-size: 1.1rem;
+		}
+	}
+
+	.footer {
+		padding: 28px 6vw 16px 6vw;
+
+		&__brand-name {
+			font-size: 1.1rem;
+		}
+
+		&__link {
+			font-size: 1.05rem;
+		}
+	}
+}

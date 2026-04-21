@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Communauté — La Parole de Dieu</title>
+
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" href="../css/communaute.css" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
+
+		<script src="../js/modale.js" defer></script>
+		<script src="../js/communaute.js" defer></script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header class="header">
+			<div id="top"></div>
+			<a href="../index.html" class="header__logo">
+				<div class="header__cross-bars" aria-hidden="true">
+					<div class="header__cross-bar-1"></div>
+					<div class="header__cross-bar-2"></div>
+					<div class="header__cross-bar-3"></div>
+					<div class="header__cross-bar-4"></div>
+					<div class="header__cross-bar-5"></div>
+					<div class="header__cross-bar-6"></div>
+				</div>
+				<h1 class="header__title header__title-top">
+					<span class="header__title-la">La</span>
+					<span class="header__title-parole">Parole</span>
+				</h1>
+				<h2 class="header__title header__title-bottom">
+					<span class="header__title-de">De</span>
+					<span class="header__title-dieu">Dieu</span>
+				</h2>
+			</a>
+			<nav class="header__nav">
+				<ul class="header__nav-list">
+					<li class="header__list-container">
+						<a class="header__list-link" href="../index.html">Accueil</a>
+					</li>
+					<li class="header__list-container">
+						<a class="header__list-link" id="create-account-link" href="#">Créez un compte</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Modale compte -->
+		<section id="account-section" class="account-section">
+			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
+			<form class="account-form"></form>
+		</section>
+
+		<!-- MAIN -->
+		<main class="communaute">
+
+			<!-- Hero -->
+			<div class="communaute__hero">
+				<span class="communaute__hero-label">Espace communautaire</span>
+				<h1 class="communaute__hero-title">Rencontrer des gens</h1>
+				<p class="communaute__hero-sub">Partagez des versets, échangez et grandissez ensemble dans la foi</p>
+			</div>
+
+			<div class="communaute__divider"></div>
+
+			<!-- Feed versets partagés -->
+			<h2 class="communaute__section-title">Versets partagés récemment</h2>
+			<div class="communaute__feed">
+
+				<div class="communaute__card">
+					<div class="communaute__card-header">
+						<div class="communaute__card-user">
+							<div class="communaute__card-avatar">M</div>
+							<span class="communaute__card-username">Matthieu</span>
+						</div>
+						<span class="communaute__card-ref">Philippiens 4:13</span>
+					</div>
+					<p class="communaute__card-text">« Je puis tout par celui qui me fortifie. »</p>
+					<div class="communaute__card-footer">
+						<button class="communaute__card-action">♡ Aimer</button>
+						<button class="communaute__card-action">↩ Répondre</button>
+						<button class="communaute__card-action">→ Lire le chapitre</button>
+					</div>
+				</div>
+
+				<div class="communaute__card">
+					<div class="communaute__card-header">
+						<div class="communaute__card-user">
+							<div class="communaute__card-avatar">S</div>
+							<span class="communaute__card-username">Sophie</span>
+						</div>
+						<span class="communaute__card-ref">Psaumes 23:1</span>
+					</div>
+					<p class="communaute__card-text">« L'Éternel est mon berger : je ne manquerai de rien. »</p>
+					<div class="communaute__card-footer">
+						<button class="communaute__card-action">♡ Aimer</button>
+						<button class="communaute__card-action">↩ Répondre</button>
+						<button class="communaute__card-action">→ Lire le chapitre</button>
+					</div>
+				</div>
+
+				<div class="communaute__card">
+					<div class="communaute__card-header">
+						<div class="communaute__card-user">
+							<div class="communaute__card-avatar">L</div>
+							<span class="communaute__card-username">Lucas</span>
+						</div>
+						<span class="communaute__card-ref">Jean 14:6</span>
+					</div>
+					<p class="communaute__card-text">« Je suis le chemin, la vérité et la vie. Nul ne vient au Père que par moi. »</p>
+					<div class="communaute__card-footer">
+						<button class="communaute__card-action">♡ Aimer</button>
+						<button class="communaute__card-action">↩ Répondre</button>
+						<button class="communaute__card-action">→ Lire le chapitre</button>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Membres -->
+			<h2 class="communaute__section-title">Membres de la communauté</h2>
+			<div class="communaute__membres-carousel">
+				<div class="communaute__membres-track" id="membres-track"></div>
+			</div>
+
+			<!-- CTA inscription -->
+			<div class="communaute__cta">
+				<h2 class="communaute__cta-title">Rejoignez la communauté</h2>
+				<p class="communaute__cta-sub">Créez un compte pour partager des versets et échanger avec d'autres croyants</p>
+				<a href="#" class="communaute__cta-btn" id="create-account-link">Créer un compte</a>
+			</div>
+
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="footer__top">
+				<div class="footer__brand">
+					<span class="footer__brand-name">La Parole de Dieu</span>
+					<span class="footer__brand-tagline">Explorez les Écritures saintes</span>
+				</div>
+				<div class="footer__columns">
+					<div class="footer__col">
+						<span class="footer__col-title">Navigation</span>
+						<a href="../index.html" class="footer__link">Accueil</a>
+						<a href="../index.html#ancien-testament" class="footer__link">Ancien Testament</a>
+						<a href="../index.html#nouveau-testament" class="footer__link">Nouveau Testament</a>
+						<a href="../index.html#recherche" class="footer__link">Recherche</a>
+					</div>
+					<div class="footer__col">
+						<span class="footer__col-title">Communauté</span>
+						<a href="communaute.html" class="footer__link">Rencontrer des gens</a>
+						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link">À propos</a>
+					</div>
+					<div class="footer__col">
+						<span class="footer__col-title">Légal</span>
+						<a href="mentions-legales.html" class="footer__link">Mentions légales</a>
+						<a href="confidentialite.html" class="footer__link">Politique de confidentialité</a>
+						<a href="cgu.html" class="footer__link">CGU</a>
+					</div>
+				</div>
+			</div>
+			<div class="footer__divider"></div>
+			<div class="footer__bottom">
+				<span class="footer__copy">© 2026 La Parole de Dieu</span>
+				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
+			</div>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,252 @@
+// ============================================================
+// PAGES — Catégorie
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.categorie {
+	gap: 40px;
+	padding-top: 60px;
+	padding-bottom: 80px;
+
+	&__back-btn {
+		align-self: flex-start;
+		margin-left: 20px;
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		text-decoration: none;
+		letter-spacing: 0.12em;
+		padding: 6px 14px;
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		border-radius: 0 10px;
+		background: rgba(212, 175, 55, 0.05);
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.12);
+			border-color: $color-accent;
+			transform: translateX(-4px);
+		}
+	}
+
+	&__hero {
+		@include flex-custom(column, center, center);
+		gap: 10px;
+		text-align: center;
+	}
+
+	&__testament {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	&__title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: clamp(1.6rem, 5vw, 3rem);
+		font-weight: 700;
+		color: $color-soft;
+		letter-spacing: 0.08em;
+		text-shadow: 0px 0px 15px $color-accent;
+		margin: 0;
+		transition:
+			color $transition,
+			transform $transition;
+	}
+
+	&__count {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		color: $color-soft;
+		opacity: 0.4;
+		margin: 0;
+	}
+
+	&__divider {
+		width: 100px;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+		align-self: center;
+	}
+
+	&__books {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 12px;
+		width: 100%;
+		max-width: 700px;
+		padding: 0 1vw;
+	}
+
+	&__book-item {
+		@include flex-custom(row, center, center);
+		width: 180px;
+		padding: 14px 18px;
+		border: 1px solid rgba(212, 175, 55, 0.2);
+		border-radius: 0 12px;
+		background: rgba(255, 255, 255, 0.04);
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.05rem;
+		color: $color-soft;
+		text-decoration: none;
+		cursor: pointer;
+		text-shadow: 0px 0px 15px $color-accent;
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			color $transition,
+			transform $transition;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.1);
+			border-color: $color-accent;
+			color: $color-link-hover;
+			transform: scale(1.15);
+		}
+	}
+
+	// --- Modale chapitres ---
+	&__modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.65);
+		z-index: 1000;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s;
+
+		&--visible {
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+
+	&__modal {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -55%);
+		z-index: 1100;
+		background: linear-gradient(135deg, #1d1d1d 0%, #141414 100%);
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		border-radius: 20px;
+		box-shadow:
+			0 20px 60px rgba(0, 0, 0, 0.6),
+			0 0 30px rgba(212, 175, 55, 0.08);
+		width: min(520px, 92vw);
+		max-height: 80vh;
+		overflow-y: auto;
+		padding: 36px 28px 28px;
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			opacity 0.3s,
+			transform 0.3s;
+
+		&--visible {
+			opacity: 1;
+			pointer-events: all;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&__modal-close {
+		position: absolute;
+		top: 14px;
+		right: 16px;
+		background: none;
+		border: none;
+		font-size: 1.3rem;
+		color: $color-accent;
+		cursor: pointer;
+		transition:
+			transform 0.3s,
+			color 0.3s;
+
+		&:hover {
+			transform: scale(1.2);
+			color: $color-link-hover;
+		}
+	}
+
+	&__modal-book {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin: 0 0 6px 0;
+		text-align: center;
+	}
+
+	&__modal-title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: $color-soft;
+		text-align: center;
+		margin: 0 0 6px 0;
+	}
+
+	&__modal-count {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.9rem;
+		color: $color-soft;
+		opacity: 0.35;
+		text-align: center;
+		margin: 0 0 20px 0;
+	}
+
+	&__modal-count-num {
+		color: $color-accent;
+		opacity: 1;
+	}
+
+	&__modal-divider {
+		width: 60px;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+		margin: 0 auto 24px;
+	}
+
+	&__modal-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+		gap: 8px;
+	}
+
+	&__modal-chapter {
+		aspect-ratio: 1;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(212, 175, 55, 0.2);
+		border-radius: 8px 0;
+		color: $color-soft;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		text-decoration: none;
+		@include flex-custom(row, center, center);
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			color 0.3s,
+			transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.12);
+			border-color: $color-accent;
+			color: $color-accent;
+			transform: scale(1.08);
+		}
+	}
+}

@@ -1,0 +1,25 @@
+// ============================================================
+// VARIABLES
+// ============================================================
+
+// --- Couleurs ---
+$color-bg:         #181818;
+$color-primary:    #1d1d1d;
+$color-accent:     #d4af37;
+$color-secondary:  #ffffff;
+$color-soft:       #fafafa;
+$color-link-hover: #c9a24d;
+
+// --- Gradients ---
+$accent-gradient: radial-gradient(
+  circle,
+  rgba(255, 255, 255, 1) 0%,
+  rgba(194, 152, 0, 1)   20%,
+  rgba(0, 0, 0, 0)       100%
+);
+
+// --- Bordures ---
+$radius: 15px;
+
+// --- Transitions ---
+$transition: 0.6s;

@@ -1,0 +1,182 @@
+// ============================================================
+// PAGES — Chapitre
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.chapitre {
+	gap: 40px;
+	padding-top: 60px;
+	padding-bottom: 80px;
+
+	&__back-btn {
+		align-self: flex-start;
+		margin-left: 20px;
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		text-decoration: none;
+		letter-spacing: 0.12em;
+		padding: 6px 14px;
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		border-radius: 0 10px;
+		background: rgba(212, 175, 55, 0.05);
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.12);
+			border-color: $color-accent;
+			transform: translateX(-4px);
+		}
+	}
+
+	&__hero {
+		@include flex-custom(column, center, center);
+		gap: 8px;
+		text-align: center;
+	}
+
+	&__book-name {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.1rem;
+		color: $color-accent;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	&__title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: clamp(1.4rem, 4vw, 2.2rem);
+		font-weight: 700;
+		color: $color-soft;
+		letter-spacing: 0.1em;
+		margin: 0;
+		text-shadow: 0px 0px 15px $color-accent;
+		transition: color $transition, transform $transition;
+
+		&:hover {
+			color: $color-link-hover;
+			transform: scale(1.15);
+		}
+	}
+
+	&__divider {
+		width: 80px;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+		align-self: center;
+	}
+
+	&__content {
+		@include flex-custom(column, flex-start, flex-start);
+		gap: 18px;
+		width: 100%;
+		max-width: 680px;
+		padding: 0 5vw;
+	}
+
+	&__heading {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.1rem;
+		color: $color-accent;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		opacity: 0.75;
+		margin: 16px 0 4px 0;
+	}
+
+	&__verse {
+		display: grid;
+		grid-template-columns: 28px 1fr;
+		gap: 12px;
+		align-items: baseline;
+		width: 100%;
+	}
+
+	&__verse-num {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 1rem;
+		color: $color-accent;
+		opacity: 0.5;
+		text-align: right;
+		padding-top: 3px;
+		user-select: none;
+	}
+
+	&__verse-text {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.15rem;
+		color: $color-soft;
+		opacity: 0.88;
+		line-height: 1.8;
+		margin: 0;
+	}
+
+	&__verse--highlight {
+		border-radius: 6px;
+		animation: verse-glow 1.6s ease-out forwards;
+
+		.chapitre__verse-text mark {
+			background: transparent;
+			color: #f5d97a;
+			text-shadow: 0 0 8px rgba(212, 175, 55, 0.9);
+			font-style: italic;
+		}
+	}
+
+	@keyframes verse-glow {
+		0%   { box-shadow: 0 0 0px transparent; background: transparent; }
+		20%  { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); background: rgba(212, 175, 55, 0.08); }
+		60%  { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.05); }
+		100% { box-shadow: 0 0 0px transparent; background: transparent; }
+	}
+
+	&__loading,
+	&__error {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		color: $color-soft;
+		opacity: 0.4;
+		margin: 0;
+	}
+
+	&__nav {
+		@include flex-custom(row, space-between, center);
+		width: 100%;
+		max-width: 680px;
+		padding: 0 5vw;
+		margin-top: 20px;
+	}
+
+	&__nav-btn {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		text-decoration: none;
+		letter-spacing: 0.12em;
+		padding: 6px 14px;
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		border-radius: 0 10px;
+		background: rgba(212, 175, 55, 0.05);
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.12);
+			border-color: $color-accent;
+		}
+
+		&--hidden {
+			visibility: hidden;
+			pointer-events: none;
+		}
+	}
+}

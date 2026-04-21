@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Profil — La Parole de Dieu</title>
+
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" href="../css/profil.css" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+		<script src="../js/modale.js" defer></script>
+		<script src="../js/profil.js" defer></script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header class="header">
+			<div id="top"></div>
+			<a href="../index.html" class="header__logo">
+				<div class="header__cross-bars" aria-hidden="true">
+					<div class="header__cross-bar-1"></div>
+					<div class="header__cross-bar-2"></div>
+					<div class="header__cross-bar-3"></div>
+					<div class="header__cross-bar-4"></div>
+					<div class="header__cross-bar-5"></div>
+					<div class="header__cross-bar-6"></div>
+				</div>
+				<h1 class="header__title header__title-top">
+					<span class="header__title-la">La</span>
+					<span class="header__title-parole">Parole</span>
+				</h1>
+				<h2 class="header__title header__title-bottom">
+					<span class="header__title-de">De</span>
+					<span class="header__title-dieu">Dieu</span>
+				</h2>
+			</a>
+			<nav class="header__nav">
+				<ul class="header__nav-list">
+					<li class="header__list-container">
+						<a class="header__list-link" href="../index.html">Accueil</a>
+					</li>
+					<li class="header__list-container">
+						<a class="header__list-link" id="create-account-link" href="#">Créez un compte</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Modale compte -->
+		<section id="account-section" class="account-section">
+			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
+			<form class="account-form"></form>
+		</section>
+
+		<!-- MAIN -->
+		<main class="profil">
+
+			<!-- Bannière -->
+			<div class="profil__banner" id="profil-banner">
+				<input type="file" id="profil-banner-input" accept="image/*" hidden />
+				<span class="profil__banner-hint">Cliquez pour modifier la bannière</span>
+			</div>
+
+			<!-- Hero profil -->
+			<section class="profil__hero">
+				<div class="profil__avatar-wrapper">
+					<div class="profil__avatar" id="profil-avatar"></div>
+					<input type="file" id="profil-photo-input" accept="image/*" hidden />
+					<button type="button" class="profil__avatar-edit-btn" id="profil-avatar-edit-btn">Modifier</button>
+				</div>
+				<div class="profil__identity">
+					<h1 class="profil__username" id="profil-username"></h1>
+					<div class="profil__bio-container">
+						<p class="profil__bio" id="profil-bio">Aucune bio pour l'instant.</p>
+						<button type="button" class="profil__bio-edit-btn" id="profil-bio-edit-btn" aria-label="Modifier la bio">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+						</button>
+					</div>
+					<textarea class="profil__bio-textarea" id="profil-bio-textarea" maxlength="120" placeholder="Ajoutez une bio..." style="display:none;"></textarea>
+					<div class="profil__bio-actions" id="profil-bio-actions" style="display:none;">
+						<button type="button" class="profil__bio-save" id="profil-bio-save">Enregistrer</button>
+						<button type="button" class="profil__bio-cancel" id="profil-bio-cancel">Annuler</button>
+					</div>
+					<p class="profil__since" id="profil-since"></p>
+				</div>
+			</section>
+
+			<div class="profil__divider"></div>
+
+			<!-- Statistiques -->
+			<section class="profil__stats">
+				<div class="profil__stat-card">
+					<span class="profil__stat-icon">🔥</span>
+					<span class="profil__stat-value" id="stat-streak">0</span>
+					<span class="profil__stat-label">Jours consécutifs</span>
+				</div>
+				<div class="profil__stat-card">
+					<span class="profil__stat-icon">📖</span>
+					<span class="profil__stat-value" id="stat-versets">0</span>
+					<span class="profil__stat-label">Versets lus</span>
+				</div>
+				<div class="profil__stat-card">
+					<span class="profil__stat-icon">♡</span>
+					<span class="profil__stat-value" id="stat-favoris">0</span>
+					<span class="profil__stat-label">Favoris</span>
+				</div>
+			</section>
+
+			<div class="profil__divider"></div>
+
+			<!-- Versets favoris -->
+			<section class="profil__section">
+				<h2 class="profil__section-title">Versets favoris</h2>
+				<div class="profil__favoris" id="profil-favoris">
+					<p class="profil__empty">Aucun verset mis en favori pour l'instant.</p>
+				</div>
+			</section>
+
+			<div class="profil__divider"></div>
+
+			<!-- Activité récente -->
+			<section class="profil__section">
+				<h2 class="profil__section-title">Activité récente</h2>
+				<div class="profil__activite" id="profil-activite">
+					<p class="profil__empty">Aucune activité récente.</p>
+				</div>
+			</section>
+
+			<div class="profil__divider"></div>
+
+			<!-- Actions -->
+			<section class="profil__actions">
+				<button type="button" class="profil__btn profil__btn--save" id="profil-save-btn">Enregistrer</button>
+				<button type="button" class="profil__btn profil__btn--reset" id="profil-reset-btn">Réinitialiser</button>
+			</section>
+
+			<p class="profil__feedback" id="profil-feedback"></p>
+
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="footer__top">
+				<div class="footer__brand">
+					<span class="footer__brand-name">La Parole de Dieu</span>
+					<span class="footer__brand-tagline">Explorez les Écritures saintes</span>
+				</div>
+				<div class="footer__columns">
+					<div class="footer__col">
+						<span class="footer__col-title">Navigation</span>
+						<a href="../index.html" class="footer__link">Accueil</a>
+						<a href="../index.html#ancien-testament" class="footer__link">Ancien Testament</a>
+						<a href="../index.html#nouveau-testament" class="footer__link">Nouveau Testament</a>
+						<a href="../index.html#recherche" class="footer__link">Recherche</a>
+					</div>
+					<div class="footer__col">
+						<span class="footer__col-title">Communauté</span>
+						<a href="communaute.html" class="footer__link">Rencontrer des gens</a>
+						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link">À propos</a>
+					</div>
+					<div class="footer__col">
+						<span class="footer__col-title">Légal</span>
+						<a href="mentions-legales.html" class="footer__link">Mentions légales</a>
+						<a href="confidentialite.html" class="footer__link">Politique de confidentialité</a>
+						<a href="cgu.html" class="footer__link">CGU</a>
+					</div>
+				</div>
+			</div>
+			<div class="footer__divider"></div>
+			<div class="footer__bottom">
+				<span class="footer__copy">© 2026 La Parole de Dieu</span>
+				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
+			</div>
+		</footer>
+	</body>
+</html>

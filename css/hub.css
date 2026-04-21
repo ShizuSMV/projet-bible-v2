@@ -1,0 +1,117 @@
+.hub {
+  gap: 40px;
+  padding-top: 60px;
+  position: relative;
+}
+.hub__back-btn {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  align-self: flex-start;
+  font-family: "Cinzel Decorative", serif;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  color: #fafafa;
+  text-decoration: none;
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+  transition: opacity 0.3s, transform 0.3s, color 0.3s;
+}
+.hub__back-btn:hover {
+  opacity: 1;
+  color: #d4af37;
+  transform: translateX(-4px);
+}
+.hub__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.hub__testament {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  color: #d4af37;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0;
+}
+.hub__book-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  color: #fafafa;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+  margin: 0;
+}
+.hub__chapter-count {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  color: #fafafa;
+  opacity: 0.4;
+  margin: 0;
+}
+.hub__divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+  align-self: center;
+}
+.hub__chapters {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 4vw;
+}
+.hub__chapters-label {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.7rem;
+  color: #d4af37;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin: 0;
+}
+.hub__chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+.hub__chapter-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px 0;
+  color: #fafafa;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+}
+.hub__chapter-btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: #d4af37;
+  color: #d4af37;
+  transform: scale(1.08);
+}
+
+/*# sourceMappingURL=hub.css.map */

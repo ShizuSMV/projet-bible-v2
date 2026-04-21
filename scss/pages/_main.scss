@@ -1,0 +1,498 @@
+// ============================================================
+// PAGES — Main (accueil, recherche, livres)
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+* {
+	box-sizing: border-box;
+	font-family: "Cormorant Garamond", serif;
+	font-weight: 500;
+	font-style: normal;
+}
+
+.main {
+	@include flex-custom(column, flex-start, center);
+	@include size(100vw, auto);
+	gap: 12px;
+	padding: 8vw 0 6vw 0;
+	overflow-x: hidden;
+
+	&__section-intro {
+		@include flex-custom(row, center, center);
+		@include size(100%, auto);
+		padding: 10px 0;
+	}
+
+	&__intro-stats {
+		@include flex-custom(row, center, center);
+		gap: 30px;
+		margin: 0;
+	}
+
+	&__intro-stat {
+		@include flex-custom(column, center, center);
+		gap: 4px;
+		text-align: center;
+	}
+
+	&__intro-number {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 1.5rem;
+		color: $color-accent;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	&__intro-label {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.85rem;
+		color: $color-soft;
+		opacity: 0.7;
+	}
+
+	&__intro-sep {
+		font-size: 2rem;
+		color: $color-accent;
+		align-self: center;
+	}
+
+	&__section-accueil {
+		@include flex-custom(column, center, center);
+		@include size(98vw, auto);
+		padding: 0 2vw;
+		position: relative;
+
+		&::after {
+			content: "";
+			position: relative;
+			width: 60%;
+			height: 2px;
+			margin-top: 20px;
+			background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, rgba(212, 175, 55, 0.8) 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%);
+			box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+		}
+	}
+
+	&__accueil-title {
+		@include flex-custom(column, center, center);
+		@include size(100%, auto);
+		text-align: center;
+		font-size: 2.5rem;
+		font-style: normal;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: $color-soft;
+		margin: 10px 0 15px 0;
+		text-shadow: 0px 0px 15px $color-accent;
+		transition:
+			color $transition,
+			transform $transition;
+	}
+
+	&__accueil-p {
+		@include flex-custom(column, center, center);
+		text-align: center;
+		@include size(100%, auto);
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.15rem;
+		color: $color-soft;
+		opacity: 0.85;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	&__section-recherche {
+		@include flex-custom(column, center, center);
+		@include size(98vw, auto);
+		padding: 20px 2vw;
+	}
+
+	&__recherche-bar-container {
+		position: relative;
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	&__recherche-bar {
+		@include size(100%, 50px);
+		border: 1px solid $color-accent;
+		border-radius: 0 $radius;
+		background: $color-primary;
+		color: $color-soft;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		padding: 10px 50px 10px 15px;
+		box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+		transition:
+			box-shadow $transition,
+			border-color $transition;
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 16px rgba(212, 175, 55, 0.6);
+		}
+
+		&::placeholder {
+			color: #888;
+			font-size: 0.9rem;
+		}
+	}
+
+	&__recherche-icon {
+		position: absolute;
+		right: 14px;
+		top: 50%;
+		transform: translateY(-50%);
+		background: transparent;
+		border: none;
+		color: $color-accent;
+		font-size: 1.1rem;
+		cursor: pointer;
+		padding: 0;
+		transition:
+			transform $transition,
+			filter $transition;
+
+		&:hover {
+			transform: translateY(-50%) scale(1.2);
+			filter: brightness(1.3);
+		}
+	}
+
+	&__section-verset {
+		@include flex-custom(column, center, center);
+		@include size(100%, auto);
+		max-width: 85%;
+		margin: 0 auto;
+		padding: 30px 20px;
+		text-align: center;
+		cursor: pointer;
+		border-radius: 12px;
+		transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.06);
+			box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+			transform: translateY(-2px);
+
+			.main__verset-ref {
+				text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+			}
+		}
+	}
+
+	&__verset-label {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.8rem;
+		color: $color-soft;
+		opacity: 0.5;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		margin: 0 0 6px 0;
+	}
+
+	&__verset-ref {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: $color-accent;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		margin: 0 0 15px 0;
+	}
+
+	&__verset-text {
+		font-family: "Cormorant Garamond", serif;
+		font-style: italic;
+		font-size: 1.2rem;
+		color: $color-soft;
+		opacity: 0.85;
+		line-height: 1.8;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+
+	&__section-books {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 20px;
+		width: 95%;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+
+	&__section-communaute {
+		@include flex-custom(column, center, center);
+		gap: 12px;
+		padding: 40px 0 60px;
+	}
+
+	&__communaute-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 14px;
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.85rem;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: $color-soft;
+		text-decoration: none;
+		border: 1px solid rgba(212, 175, 55, 0.4);
+		padding: 14px 36px;
+		border-radius: 2px;
+		transition: color 0.3s, border-color 0.3s, box-shadow 0.3s, background 0.3s;
+
+		&:hover {
+			color: $color-accent;
+			border-color: $color-accent;
+			background: rgba(212, 175, 55, 0.05);
+			box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+		}
+	}
+
+	&__communaute-btn-icon {
+		color: $color-accent;
+		font-size: 0.6rem;
+		opacity: 0.7;
+	}
+
+	&__communaute-sub {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.9rem;
+		color: $color-soft;
+		opacity: 0.35;
+		font-style: italic;
+		letter-spacing: 0.04em;
+		margin: 0;
+	}
+
+	&__books-accordion {
+		padding: 15px 0;
+		width: 100%;
+
+		.accordion__inner {
+			overflow: hidden;
+		}
+
+		& > summary {
+			list-style: none;
+			&::-webkit-details-marker {
+				display: none;
+			}
+		}
+
+		& > summary::before {
+			content: "+";
+			display: inline-block;
+			width: 20px;
+			margin-right: 10px;
+			font-weight: 700;
+			color: $color-accent;
+			transition: transform $transition;
+		}
+
+		&[open] > summary::before {
+			content: "−";
+		}
+	}
+
+	&__books-accordion--right {
+		& > summary {
+			@include flex-custom(row, flex-end, center);
+			gap: 8px;
+		}
+
+		& > summary::before {
+			order: 2;
+			margin-right: 0;
+		}
+
+		& > summary::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			height: 2px;
+			background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, rgba(212, 175, 55, 0.8) 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%);
+			box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+		}
+
+		&[open] > summary::before {
+			content: "−";
+		}
+	}
+
+	&__books-h2 {
+		@include flex-custom(row, center, center);
+		@include size(100%, auto);
+		text-align: center;
+		color: $color-soft;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.9rem;
+		font-weight: 500;
+		font-style: normal;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		padding: 15px 0;
+		margin-bottom: 10px;
+		position: relative;
+		cursor: pointer;
+		transition:
+			color $transition,
+			transform $transition;
+
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			height: 2px;
+			background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, rgba(212, 175, 55, 0.8) 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%);
+			box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+		}
+
+		&:hover {
+			color: $color-link-hover;
+			transform: scale(1.02);
+		}
+	}
+
+	&__books-h3 {
+		@include flex-custom(row, center, center);
+		@include size(auto, 60px);
+		text-align: left;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		font-weight: 500;
+		font-style: normal;
+		color: $color-soft;
+		border-bottom: 1px solid $color-accent;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		text-decoration: none;
+		padding: 10px 8px;
+		margin: 15px 0 10px 0;
+		cursor: pointer;
+		transition:
+			background $transition,
+			color $transition;
+
+		&:hover {
+			background: rgba(29, 29, 29, 0.8);
+			box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15);
+		}
+	}
+
+	&__books-submenu {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 8px;
+		@include size(100%, auto);
+		margin-bottom: 15px;
+		padding: 0 5px;
+		list-style: none;
+	}
+
+	&__books-item {
+		@include flex-custom(row, flex-start, center);
+		@include size(100%, 36px);
+		text-align: left;
+		border-radius: 0 $radius $radius 0;
+		border: 1px solid rgba(212, 175, 55, 0.4);
+		background: rgba(255, 255, 255, 0.06);
+		padding: 5px 12px;
+		font-size: 0.9rem;
+		color: $color-soft;
+		cursor: pointer;
+		text-decoration: none;
+		margin-right: 10px;
+		transition:
+			background $transition,
+			color $transition,
+			border-color $transition;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.15);
+			border-color: $color-accent;
+			color: $color-accent;
+		}
+	}
+}
+
+// --- Dropdown de recherche ---
+.search-dropdown {
+	position: absolute;
+	top: calc(100% + 6px);
+	left: 0;
+	width: 100%;
+	background: #1a1a1a;
+	border: 1px solid rgba(212, 175, 55, 0.25);
+	border-radius: 0 12px;
+	list-style: none;
+	padding: 6px 0;
+	margin: 0;
+	z-index: 500;
+	display: none;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+	&--visible {
+		display: block;
+	}
+
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 16px;
+		cursor: pointer;
+		transition: background 0.2s;
+
+		&:hover,
+		&--active {
+			background: rgba(212, 175, 55, 0.08);
+		}
+
+		&--verse {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 3px;
+		}
+	}
+
+	&__label {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		color: $color-soft;
+	}
+
+	&__sub {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.6rem;
+		color: $color-accent;
+		opacity: 0.6;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	&__item--verse &__sub {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.85rem;
+		text-transform: none;
+		letter-spacing: 0;
+		opacity: 0.5;
+		font-style: italic;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
+}

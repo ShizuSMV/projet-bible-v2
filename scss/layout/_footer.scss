@@ -1,0 +1,111 @@
+// ============================================================
+// LAYOUT — Footer
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.footer {
+	width: 100vw;
+	background: #141414;
+	margin-top: 48px;
+	padding: 40px 6vw 24px 6vw;
+
+	&__top {
+		@include flex-custom(column, center, center);
+		gap: 32px;
+	}
+
+	&__columns {
+		@include flex-custom(row, center, flex-start);
+		gap: 40px;
+	}
+
+	&__col {
+		@include flex-custom(column, flex-start, flex-start);
+		gap: 10px;
+	}
+
+	&__col-title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.6rem;
+		color: $color-accent;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		opacity: 0.8;
+		margin-bottom: 4px;
+	}
+
+	&__brand {
+		@include flex-custom(column, center, center);
+		gap: 6px;
+		text-align: center;
+		width: 100%;
+	}
+
+	&__brand-name {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 1rem;
+		font-weight: 700;
+		color: $color-accent;
+		letter-spacing: 0.08em;
+	}
+
+	&__brand-tagline {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.88rem;
+		color: $color-soft;
+		opacity: 0.4;
+		letter-spacing: 0.04em;
+	}
+
+	&__nav {
+		@include flex-custom(row, center, center);
+		gap: 28px;
+	}
+
+	&__link {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.95rem;
+		color: $color-soft;
+		text-decoration: none;
+		opacity: 0.6;
+		letter-spacing: 0.06em;
+		transition: opacity 0.3s, color 0.3s;
+
+		&:hover {
+			opacity: 1;
+			color: $color-accent;
+		}
+	}
+
+	&__divider {
+		width: 100%;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+		margin: 28px 0 18px 0;
+	}
+
+	&__bottom {
+		@include flex-custom(column, center, center);
+		gap: 6px;
+		text-align: center;
+	}
+
+	&__copy {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.8rem;
+		color: $color-accent;
+		opacity: 0.7;
+		letter-spacing: 0.08em;
+	}
+
+	&__source {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		color: $color-soft;
+		opacity: 0.3;
+		letter-spacing: 0.04em;
+		font-style: italic;
+	}
+}

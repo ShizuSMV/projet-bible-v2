@@ -1,0 +1,128 @@
+// ============================================================
+// PAGES — Hub (livre sélectionné)
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.hub {
+	gap: 40px;
+	padding-top: 60px;
+	position: relative;
+
+	&__back-btn {
+		position: absolute;
+		left: 0;
+		@include flex-custom(row, flex-start, flex-start);
+		@include size(100%, auto);
+		align-self: flex-start;
+		font-family: "Cinzel Decorative", serif;
+		margin-left: 20px;
+		font-size: 0.8rem;
+		color: $color-soft;
+		text-decoration: none;
+		opacity: 0.6;
+		letter-spacing: 0.08em;
+		transition:
+			opacity 0.3s,
+			transform 0.3s,
+			color 0.3s;
+
+		&:hover {
+			opacity: 1;
+			color: $color-accent;
+			transform: translateX(-4px);
+		}
+	}
+
+	&__hero {
+		@include flex-custom(column, center, center);
+		gap: 10px;
+		text-align: center;
+	}
+
+	&__testament {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		color: $color-accent;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	&__book-title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: clamp(2rem, 6vw, 3.5rem);
+		font-weight: 700;
+		color: $color-soft;
+		letter-spacing: 0.08em;
+		text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+		margin: 0;
+	}
+
+	&__chapter-count {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		color: $color-soft;
+		opacity: 0.4;
+		margin: 0;
+	}
+
+	&__divider {
+		width: 120px;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+		align-self: center;
+	}
+
+	&__chapters {
+		@include flex-custom(column, center, center);
+		gap: 24px;
+		width: 100%;
+		max-width: 700px;
+		padding: 0 4vw;
+	}
+
+	&__chapters-label {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.7rem;
+		color: $color-accent;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		opacity: 0.6;
+		margin: 0;
+	}
+
+	&__chapters-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+		gap: 10px;
+		width: 100%;
+	}
+
+	&__chapter-btn {
+		@include flex-custom(row, center, center);
+		text-decoration: none;
+		aspect-ratio: 1;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(212, 175, 55, 0.2);
+		border-radius: 10px 0;
+		color: $color-soft;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		cursor: pointer;
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			color 0.3s,
+			transform 0.3s;
+
+		&:hover {
+			background: rgba(212, 175, 55, 0.12);
+			border-color: $color-accent;
+			color: $color-accent;
+			transform: scale(1.08);
+		}
+	}
+}

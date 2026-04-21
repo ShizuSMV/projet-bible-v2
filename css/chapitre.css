@@ -1,0 +1,171 @@
+.chapitre {
+  gap: 40px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+.chapitre__back-btn {
+  align-self: flex-start;
+  margin-left: 20px;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.75rem;
+  color: #d4af37;
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0 10px;
+  background: rgba(212, 175, 55, 0.05);
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.chapitre__back-btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: #d4af37;
+  transform: translateX(-4px);
+}
+.chapitre__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.chapitre__book-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  color: #d4af37;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0;
+}
+.chapitre__title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: #fafafa;
+  letter-spacing: 0.1em;
+  margin: 0;
+  text-shadow: 0px 0px 15px #d4af37;
+  transition: color 0.6s, transform 0.6s;
+}
+.chapitre__title:hover {
+  color: #c9a24d;
+  transform: scale(1.15);
+}
+.chapitre__divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+  align-self: center;
+}
+.chapitre__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  max-width: 680px;
+  padding: 0 5vw;
+}
+.chapitre__heading {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  color: #d4af37;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin: 16px 0 4px 0;
+}
+.chapitre__verse {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  width: 100%;
+}
+.chapitre__verse-num {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1rem;
+  color: #d4af37;
+  opacity: 0.5;
+  text-align: right;
+  padding-top: 3px;
+  user-select: none;
+}
+.chapitre__verse-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  color: #fafafa;
+  opacity: 0.88;
+  line-height: 1.8;
+  margin: 0;
+}
+.chapitre__verse--highlight {
+  border-radius: 6px;
+  animation: verse-glow 1.6s ease-out forwards;
+}
+.chapitre__verse--highlight .chapitre__verse-text mark {
+  background: transparent;
+  color: #f5d97a;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.9);
+  font-style: italic;
+}
+@keyframes verse-glow {
+  0% {
+    box-shadow: 0 0 0px transparent;
+    background: transparent;
+  }
+  20% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.08);
+  }
+  60% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0px transparent;
+    background: transparent;
+  }
+}
+.chapitre__loading, .chapitre__error {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  color: #fafafa;
+  opacity: 0.4;
+  margin: 0;
+}
+.chapitre__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 680px;
+  padding: 0 5vw;
+  margin-top: 20px;
+}
+.chapitre__nav-btn {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.75rem;
+  color: #d4af37;
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0 10px;
+  background: rgba(212, 175, 55, 0.05);
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.chapitre__nav-btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: #d4af37;
+}
+.chapitre__nav-btn--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/*# sourceMappingURL=chapitre.css.map */

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>La Parole de Dieu</title>
+
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" href="../css/categorie.css" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
+
+		<script src="../js/categorie.js" defer></script>
+		<script src="../js/modale.js" defer></script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header class="header">
+			<div id="top"></div>
+			<a href="../index.html" class="header__logo">
+				<div class="header__cross-bars" aria-hidden="true">
+					<div class="header__cross-bar-1"></div>
+					<div class="header__cross-bar-2"></div>
+					<div class="header__cross-bar-3"></div>
+					<div class="header__cross-bar-4"></div>
+					<div class="header__cross-bar-5"></div>
+					<div class="header__cross-bar-6"></div>
+				</div>
+				<h1 class="header__title header__title-top">
+					<span class="header__title-la">La</span>
+					<span class="header__title-parole">Parole</span>
+				</h1>
+				<h2 class="header__title header__title-bottom">
+					<span class="header__title-de">De</span>
+					<span class="header__title-dieu">Dieu</span>
+				</h2>
+			</a>
+			<nav class="header__nav">
+				<ul class="header__nav-list">
+					<li class="header__list-container">
+						<a class="header__list-link" href="../index.html">Accueil</a>
+					</li>
+					<li class="header__list-container">
+						<a class="header__list-link" id="create-account-link" href="#">Créez un compte</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Modale compte -->
+		<section id="account-section" class="account-section">
+			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
+			<form class="account-form"></form>
+		</section>
+
+		<!-- MAIN -->
+		<main class="main categorie">
+			<a class="categorie__back-btn" href="../index.html">← Retour</a>
+
+			<section class="categorie__hero">
+				<p class="categorie__testament" id="cat-testament"></p>
+				<h2 class="categorie__title" id="cat-title"></h2>
+				<p class="categorie__count" id="cat-count"></p>
+			</section>
+
+			<div class="categorie__divider"></div>
+
+			<section class="categorie__books" id="cat-books"></section>
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="footer__top">
+				<div class="footer__brand">
+					<span class="footer__brand-name">La Parole de Dieu</span>
+					<span class="footer__brand-tagline">Explorez les Écritures saintes</span>
+				</div>
+				<nav class="footer__nav">
+					<a href="#" class="footer__link">Contact</a>
+					<a href="#" class="footer__link">À propos</a>
+				</nav>
+			</div>
+			<div class="footer__divider"></div>
+			<div class="footer__bottom">
+				<span class="footer__copy">© 2026 La Parole de Dieu</span>
+			</div>
+		</footer>
+	</body>
+</html>

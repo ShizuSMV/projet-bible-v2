@@ -1,0 +1,18 @@
+// ============================================================
+// ENTRÉE PRINCIPALE — index.scss
+// Importe tous les partials dans l'ordre correct
+// ============================================================
+
+// 1. Base (reset, styles globaux)
+@use "base/reset";
+
+// 2. Layout (header, footer, responsive)
+@use "layout/header";
+@use "layout/footer";
+@use "layout/responsive";
+
+// 3. Composants
+@use "components/modale";
+
+// 4. Pages
+@use "pages/main";
