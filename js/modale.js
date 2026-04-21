@@ -134,7 +134,7 @@ function resetAccountModal() {
 			errorEl.style.display = "none"
 
 			const submitBtn = document.createElement("button")
-			submitBtn.type = "submit"
+			submitBtn.type = "button"
 			submitBtn.className = "account-submit"
 			submitBtn.textContent = "Valider"
 
