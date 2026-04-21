@@ -1,0 +1,176 @@
+.recherche-page {
+  width: 100%;
+  min-height: 60vh;
+  padding: 80px 24px;
+}
+
+.recherche-page__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.recherche-page__title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fafafa;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* ── Barre de recherche ── */
+.recherche-page__bar-wrap {
+  display: flex;
+  gap: 0;
+  width: 100%;
+}
+
+.recherche-page__input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  color: #fafafa;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  padding: 12px 18px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.recherche-page__input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  font-style: italic;
+}
+
+.recherche-page__input:focus {
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+.recherche-page__btn {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 0 8px 8px 0;
+  color: #d4af37;
+  cursor: pointer;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.recherche-page__btn:hover {
+  background: rgba(212, 175, 55, 0.28);
+}
+
+/* ── Statut ── */
+.recherche-page__status {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  min-height: 20px;
+}
+
+/* ── Résultats ── */
+.recherche-page__results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recherche__card {
+  background: rgba(212, 175, 55, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.recherche__card:hover {
+  background: rgba(212, 175, 55, 0.09);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.recherche__card-ref {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.65rem;
+  color: #d4af37;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: fit-content;
+  transition: opacity 0.15s;
+}
+
+.recherche__card-ref:hover {
+  opacity: 0.7;
+}
+
+.recherche__card-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #fafafa;
+  opacity: 0.85;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.recherche__card-text mark {
+  background: rgba(212, 175, 55, 0.25);
+  color: #d4af37;
+  border-radius: 2px;
+  padding: 0 2px;
+  font-style: normal;
+}
+
+/* ── Charger plus ── */
+.recherche-page__more {
+  align-self: center;
+  background: none;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 6px;
+  color: #d4af37;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  padding: 10px 32px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recherche-page__more:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* ── Item "Voir tous" dans le dropdown ── */
+.search-dropdown__item--all {
+  border-top: 1px solid rgba(212, 175, 55, 0.12);
+  margin-top: 2px;
+}
+
+.search-dropdown__item--all .search-dropdown__label {
+  color: #d4af37;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .recherche-page {
+    padding: 60px 16px;
+  }
+}

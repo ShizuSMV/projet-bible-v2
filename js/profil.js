@@ -1,4 +1,177 @@
 // ============================================================
+// IMAGE EDITOR — Zoom / Pan / Crop overlay
+// ============================================================
+function openImageEditor(file, cropW, cropH, outputW, outputH, isCircle, onConfirm) {
+	const overlay = document.createElement("div")
+	overlay.className = "img-editor-overlay"
+	overlay.innerHTML = `
+		<div class="img-editor-box">
+			<p class="img-editor-title">Ajuster l'image</p>
+			<div class="img-editor-frame${isCircle ? " img-editor-frame--circle" : ""}" style="width:${cropW}px;height:${cropH}px;">
+				<img class="img-editor-img" draggable="false" alt="" />
+			</div>
+			<p class="img-editor-hint">Glisser · Molette ou curseur pour zoomer</p>
+			<div class="img-editor-zoom-row">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+				<input type="range" class="img-editor-zoom" min="0" max="100" value="0" />
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+			</div>
+			<div class="img-editor-actions">
+				<button type="button" class="img-editor-btn img-editor-btn--cancel">Annuler</button>
+				<button type="button" class="img-editor-btn img-editor-btn--confirm">Valider</button>
+			</div>
+		</div>
+	`
+	document.body.appendChild(overlay)
+
+	const frame      = overlay.querySelector(".img-editor-frame")
+	const img        = overlay.querySelector(".img-editor-img")
+	const slider     = overlay.querySelector(".img-editor-zoom")
+	const cancelBtn  = overlay.querySelector(".img-editor-btn--cancel")
+	const confirmBtn = overlay.querySelector(".img-editor-btn--confirm")
+
+	let scale = 1, minScale = 1, maxScale = 4
+	let ox = 0, oy = 0
+
+	const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi)
+
+	function clampOffsets() {
+		ox = clamp(ox, cropW - img.naturalWidth  * scale, 0)
+		oy = clamp(oy, cropH - img.naturalHeight * scale, 0)
+	}
+
+	function render() {
+		img.style.width  = img.naturalWidth  * scale + "px"
+		img.style.height = img.naturalHeight * scale + "px"
+		img.style.left   = ox + "px"
+		img.style.top    = oy + "px"
+	}
+
+	function zoomTo(newScale, pivotX, pivotY) {
+		const ptX = (pivotX - ox) / scale
+		const ptY = (pivotY - oy) / scale
+		scale = clamp(newScale, minScale, maxScale)
+		ox = pivotX - ptX * scale
+		oy = pivotY - ptY * scale
+		clampOffsets()
+		render()
+		slider.value = Math.round(((scale - minScale) / (maxScale - minScale)) * 100)
+	}
+
+	img.onload = () => {
+		minScale = Math.max(cropW / img.naturalWidth, cropH / img.naturalHeight)
+		maxScale = minScale * 4
+		scale    = minScale
+		ox = (cropW - img.naturalWidth  * scale) / 2
+		oy = (cropH - img.naturalHeight * scale) / 2
+		render()
+		requestAnimationFrame(() => overlay.classList.add("img-editor-overlay--visible"))
+	}
+
+	const reader = new FileReader()
+	reader.onload = e => { img.src = e.target.result }
+	reader.readAsDataURL(file)
+
+	// Mouse drag
+	let dragging = false, dsx = 0, dsy = 0, dox = 0, doy = 0
+
+	frame.addEventListener("mousedown", e => {
+		dragging = true
+		dsx = e.clientX; dsy = e.clientY; dox = ox; doy = oy
+		frame.style.cursor = "grabbing"
+		e.preventDefault()
+	})
+
+	document.addEventListener("mousemove", e => {
+		if (!dragging) return
+		ox = dox + (e.clientX - dsx)
+		oy = doy + (e.clientY - dsy)
+		clampOffsets(); render()
+	})
+
+	document.addEventListener("mouseup", () => {
+		dragging = false
+		frame.style.cursor = "grab"
+	})
+
+	// Wheel zoom
+	frame.addEventListener("wheel", e => {
+		e.preventDefault()
+		const rect  = frame.getBoundingClientRect()
+		const delta = e.deltaY < 0 ? 0.12 : -0.12
+		zoomTo(scale + (maxScale - minScale) * delta * 0.3, e.clientX - rect.left, e.clientY - rect.top)
+	}, { passive: false })
+
+	// Touch drag + pinch
+	let lastDist = 0
+
+	frame.addEventListener("touchstart", e => {
+		e.preventDefault()
+		if (e.touches.length === 1) {
+			dragging = true
+			dsx = e.touches[0].clientX; dsy = e.touches[0].clientY; dox = ox; doy = oy
+			lastDist = 0
+		} else if (e.touches.length === 2) {
+			dragging = false
+			lastDist = Math.hypot(
+				e.touches[0].clientX - e.touches[1].clientX,
+				e.touches[0].clientY - e.touches[1].clientY
+			)
+		}
+	}, { passive: false })
+
+	frame.addEventListener("touchmove", e => {
+		e.preventDefault()
+		if (e.touches.length === 1 && dragging) {
+			ox = dox + (e.touches[0].clientX - dsx)
+			oy = doy + (e.touches[0].clientY - dsy)
+			clampOffsets(); render()
+		} else if (e.touches.length === 2) {
+			const dist = Math.hypot(
+				e.touches[0].clientX - e.touches[1].clientX,
+				e.touches[0].clientY - e.touches[1].clientY
+			)
+			if (lastDist) {
+				const rect = frame.getBoundingClientRect()
+				const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left
+				const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top
+				zoomTo(scale * (dist / lastDist), midX, midY)
+			}
+			lastDist = dist
+		}
+	}, { passive: false })
+
+	frame.addEventListener("touchend", e => {
+		if (e.touches.length < 2) lastDist = 0
+		if (e.touches.length === 0) dragging = false
+	})
+
+	// Slider
+	slider.addEventListener("input", () => {
+		const t = slider.value / 100
+		zoomTo(minScale + t * (maxScale - minScale), cropW / 2, cropH / 2)
+	})
+
+	function close() {
+		overlay.classList.remove("img-editor-overlay--visible")
+		setTimeout(() => overlay.remove(), 280)
+	}
+
+	cancelBtn.addEventListener("click", close)
+
+	confirmBtn.addEventListener("click", () => {
+		const canvas = document.createElement("canvas")
+		canvas.width  = outputW
+		canvas.height = outputH
+		const ctx = canvas.getContext("2d")
+		ctx.drawImage(img, -ox / scale, -oy / scale, cropW / scale, cropH / scale, 0, 0, outputW, outputH)
+		const dataUrl = canvas.toDataURL("image/jpeg", 0.92)
+		close()
+		setTimeout(() => onConfirm(dataUrl), 10)
+	})
+}
+
+// ============================================================
 // PROFIL — Chargement des données utilisateur
 // ============================================================
 
@@ -28,15 +201,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		bannerInput.addEventListener("change", () => {
 			const file = bannerInput.files[0]
 			if (!file) return
-			const reader = new FileReader()
-			reader.onload = (e) => {
-				const dataUrl = e.target.result
+			const editorW = Math.min(window.innerWidth - 48, 720)
+			const editorH = Math.round(editorW * 180 / 800)
+			openImageEditor(file, editorW, editorH, 800, 180, false, dataUrl => {
 				localStorage.setItem(`lpd_banner_${user.email}`, dataUrl)
 				bannerEl.style.backgroundImage = `url(${dataUrl})`
 				bannerEl.style.backgroundSize = "cover"
 				bannerEl.style.backgroundPosition = "center"
-			}
-			reader.readAsDataURL(file)
+			})
+			bannerInput.value = ""
 		})
 	}
 
@@ -63,16 +236,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		photoInput.addEventListener("change", () => {
 			const file = photoInput.files[0]
 			if (!file) return
-			const reader = new FileReader()
-			reader.onload = (e) => {
-				const dataUrl = e.target.result
+			const size = Math.min(window.innerWidth - 96, 280)
+			openImageEditor(file, size, size, 300, 300, true, dataUrl => {
 				localStorage.setItem(`lpd_photo_${user.email}`, dataUrl)
 				avatarEl.style.backgroundImage = `url(${dataUrl})`
 				avatarEl.style.backgroundSize = "cover"
 				avatarEl.style.backgroundPosition = "center"
 				avatarEl.textContent = ""
-			}
-			reader.readAsDataURL(file)
+			})
+			photoInput.value = ""
 		})
 	}
 

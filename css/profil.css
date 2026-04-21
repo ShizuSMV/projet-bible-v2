@@ -448,6 +448,120 @@
 .profil__feedback--success { color: #7ecb8f; }
 .profil__feedback--reset   { color: #c0765a; }
 
+/* ── Image Editor Overlay ── */
+.img-editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.img-editor-overlay--visible {
+  opacity: 1;
+}
+
+.img-editor-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: #1a1510;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 16px;
+  max-width: 92vw;
+}
+
+.img-editor-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: #d4af37;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.img-editor-frame {
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.08);
+  max-width: 100%;
+}
+
+.img-editor-frame--circle {
+  border-radius: 50%;
+}
+
+.img-editor-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.img-editor-hint {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+  text-align: center;
+}
+
+.img-editor-zoom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: rgba(212, 175, 55, 0.5);
+}
+
+.img-editor-zoom {
+  flex: 1;
+  accent-color: #d4af37;
+  cursor: pointer;
+  height: 4px;
+}
+
+.img-editor-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.img-editor-btn {
+  padding: 8px 28px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  transition: opacity 0.15s;
+}
+
+.img-editor-btn--cancel {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.img-editor-btn--confirm {
+  background: #d4af37;
+  color: #1a1510;
+  font-weight: 600;
+}
+
+.img-editor-btn:hover {
+  opacity: 0.8;
+}
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .profil__stats {

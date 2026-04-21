@@ -54,7 +54,7 @@ function searchVerses(query) {
 		const t = normalize(entry.t)
 		if (words.every(w => t.includes(w))) {
 			results.push(entry)
-			if (results.length >= 4) break
+			if (results.length >= 3) break
 		}
 	}
 	return results
@@ -130,9 +130,15 @@ async function getSuggestions(query) {
 				verse: true,
 			})
 		}
+		suggestions.push({
+			label: "Voir tous les résultats",
+			sub: `Rechercher "${q}" dans toute la Bible`,
+			url: `pages/recherche.html?q=${encodeURIComponent(q)}`,
+			isAll: true,
+		})
 	}
 
-	return suggestions.slice(0, 7)
+	return suggestions.slice(0, 8)
 }
 
 // ============================================================
@@ -161,7 +167,7 @@ if (searchInput) {
 
 		for (const [i, s] of suggestions.entries()) {
 			const li = document.createElement("li")
-			li.className = "search-dropdown__item" + (s.verse ? " search-dropdown__item--verse" : "")
+			li.className = "search-dropdown__item" + (s.verse ? " search-dropdown__item--verse" : "") + (s.isAll ? " search-dropdown__item--all" : "")
 			li.innerHTML = `
 				<span class="search-dropdown__label">${s.label}</span>
 				<span class="search-dropdown__sub">${s.sub}</span>
@@ -206,8 +212,13 @@ if (searchInput) {
 			e.preventDefault()
 			if (activeIndex >= 0 && lastSuggestions[activeIndex]) {
 				navigate(lastSuggestions[activeIndex].url)
-			} else if (lastSuggestions.length) {
-				navigate(lastSuggestions[0].url)
+			} else {
+				const q = searchInput.value.trim()
+				if (q && isKeywordQuery(q)) {
+					navigate(`pages/recherche.html?q=${encodeURIComponent(q)}`)
+				} else if (lastSuggestions.length) {
+					navigate(lastSuggestions[0].url)
+				}
 			}
 			return
 		} else if (e.key === "Escape") {
@@ -223,6 +234,11 @@ if (searchInput) {
 	})
 
 	searchBtn.addEventListener("click", () => {
-		if (lastSuggestions.length) navigate(lastSuggestions[0].url)
+		const q = searchInput.value.trim()
+		if (q && isKeywordQuery(q)) {
+			navigate(`pages/recherche.html?q=${encodeURIComponent(q)}`)
+		} else if (lastSuggestions.length) {
+			navigate(lastSuggestions[0].url)
+		}
 	})
 }
