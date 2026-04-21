@@ -175,19 +175,15 @@ function openImageEditor(file, cropW, cropH, outputW, outputH, isCircle, onConfi
 // PROFIL — Chargement des données utilisateur
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-	const user = JSON.parse(localStorage.getItem("lpd_current_user") || "null")
-
-	if (!user) {
-		window.location.href = "../index.html"
-		return
-	}
+function initProfil(user) {
+	const uid      = user.id
+	const username = user.user_metadata?.full_name || user.email.split("@")[0]
 
 	// --- Bannière ---
 	const bannerEl    = document.getElementById("profil-banner")
 	const bannerInput = document.getElementById("profil-banner-input")
 
-	const savedBanner = localStorage.getItem(`lpd_banner_${user.email}`)
+	const savedBanner = localStorage.getItem(`lpd_banner_${uid}`)
 	if (bannerEl && savedBanner) {
 		bannerEl.style.backgroundImage = `url(${savedBanner})`
 		bannerEl.style.backgroundSize = "cover"
@@ -204,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			const editorW = Math.min(window.innerWidth - 48, 720)
 			const editorH = Math.round(editorW * 180 / 800)
 			openImageEditor(file, editorW, editorH, 800, 180, false, dataUrl => {
-				localStorage.setItem(`lpd_banner_${user.email}`, dataUrl)
+				localStorage.setItem(`lpd_banner_${uid}`, dataUrl)
 				bannerEl.style.backgroundImage = `url(${dataUrl})`
 				bannerEl.style.backgroundSize = "cover"
 				bannerEl.style.backgroundPosition = "center"
@@ -218,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const photoInput    = document.getElementById("profil-photo-input")
 	const avatarEditBtn = document.getElementById("profil-avatar-edit-btn")
 
-	const savedPhoto = localStorage.getItem(`lpd_photo_${user.email}`)
+	const savedPhoto = localStorage.getItem(`lpd_photo_${uid}`)
 	if (avatarEl) {
 		if (savedPhoto) {
 			avatarEl.style.backgroundImage = `url(${savedPhoto})`
@@ -226,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			avatarEl.style.backgroundPosition = "center"
 			avatarEl.textContent = ""
 		} else {
-			avatarEl.textContent = user.username.charAt(0).toUpperCase()
+			avatarEl.textContent = username.charAt(0).toUpperCase()
 		}
 	}
 
@@ -238,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (!file) return
 			const size = Math.min(window.innerWidth - 96, 280)
 			openImageEditor(file, size, size, 300, 300, true, dataUrl => {
-				localStorage.setItem(`lpd_photo_${user.email}`, dataUrl)
+				localStorage.setItem(`lpd_photo_${uid}`, dataUrl)
 				avatarEl.style.backgroundImage = `url(${dataUrl})`
 				avatarEl.style.backgroundSize = "cover"
 				avatarEl.style.backgroundPosition = "center"
@@ -250,29 +246,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// --- Username ---
 	const usernameEl = document.getElementById("profil-username")
-	if (usernameEl) usernameEl.textContent = user.username
+	if (usernameEl) usernameEl.textContent = username
 
 	// --- Date d'inscription ---
 	const sinceEl = document.getElementById("profil-since")
-	if (sinceEl) {
-		const users = JSON.parse(localStorage.getItem("lpd_users") || "[]")
-		const fullUser = users.find(u => u.email === user.email)
-		if (fullUser?.createdAt) {
-			const date = new Date(fullUser.createdAt)
-			sinceEl.textContent = `Membre depuis ${date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}`
-		}
+	if (sinceEl && user.created_at) {
+		const date = new Date(user.created_at)
+		sinceEl.textContent = `Membre depuis ${date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}`
 	}
 
 	// --- Bio ---
-	const bioEl       = document.getElementById("profil-bio")
-	const bioTextarea = document.getElementById("profil-bio-textarea")
-	const bioEditBtn  = document.getElementById("profil-bio-edit-btn")
-	const bioSaveBtn  = document.getElementById("profil-bio-save")
+	const bioEl        = document.getElementById("profil-bio")
+	const bioTextarea  = document.getElementById("profil-bio-textarea")
+	const bioEditBtn   = document.getElementById("profil-bio-edit-btn")
+	const bioSaveBtn   = document.getElementById("profil-bio-save")
 	const bioCancelBtn = document.getElementById("profil-bio-cancel")
-	const bioActions  = document.getElementById("profil-bio-actions")
+	const bioActions   = document.getElementById("profil-bio-actions")
 
-	const savedBio = localStorage.getItem(`lpd_bio_${user.email}`) || ""
-	if (bioEl && savedBio) bioEl.innerText = savedBio
+	// Bio synced via Netlify metadata, fallback to localStorage
+	let currentBio = user.user_metadata?.bio || localStorage.getItem(`lpd_bio_${uid}`) || ""
+	if (bioEl && currentBio) bioEl.innerText = currentBio
 
 	if (bioEditBtn) {
 		bioEditBtn.addEventListener("click", () => {
@@ -280,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			bioEditBtn.style.display = "none"
 			bioTextarea.style.display = "block"
 			bioActions.style.display = "flex"
-			bioTextarea.value = savedBio || ""
+			bioTextarea.value = currentBio
 			bioTextarea.focus()
 		})
 	}
@@ -297,7 +290,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (bioSaveBtn) {
 		bioSaveBtn.addEventListener("click", () => {
 			const newBio = bioTextarea.value.trim()
-			localStorage.setItem(`lpd_bio_${user.email}`, newBio)
+			currentBio = newBio
+			localStorage.setItem(`lpd_bio_${uid}`, newBio)
+			// Sync bio to Netlify Identity metadata
+			window.netlifyIdentity?.currentUser()?.update({ data: { bio: newBio } })
 			bioEl.innerText = newBio || "Aucune bio pour l'instant."
 			bioTextarea.style.display = "none"
 			bioActions.style.display = "none"
@@ -307,9 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// --- Statistiques ---
-	const favorites = JSON.parse(localStorage.getItem(`lpd_favorites_${user.email}`) || "[]")
-	const streak    = parseInt(localStorage.getItem(`lpd_streak_${user.email}`) || "0")
-	const versets   = parseInt(localStorage.getItem(`lpd_versets_${user.email}`) || "0")
+	const favorites = JSON.parse(localStorage.getItem(`lpd_favorites_${uid}`) || "[]")
+	const streak    = parseInt(localStorage.getItem(`lpd_streak_${uid}`) || "0")
+	const versets   = parseInt(localStorage.getItem(`lpd_versets_${uid}`) || "0")
 
 	const streakEl  = document.getElementById("stat-streak")
 	const versetsEl = document.getElementById("stat-versets")
@@ -335,9 +331,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// --- Boutons Enregistrer / Réinitialiser ---
-	const saveBtn     = document.getElementById("profil-save-btn")
-	const resetBtn    = document.getElementById("profil-reset-btn")
-	const feedbackEl  = document.getElementById("profil-feedback")
+	const saveBtn    = document.getElementById("profil-save-btn")
+	const resetBtn   = document.getElementById("profil-reset-btn")
+	const feedbackEl = document.getElementById("profil-feedback")
 
 	function showFeedback(msg, type = "success") {
 		feedbackEl.textContent = msg
@@ -356,22 +352,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		resetBtn.addEventListener("click", () => {
 			if (!confirm("Réinitialiser votre profil ? La photo, la bannière et la bio seront supprimées.")) return
 
-			localStorage.removeItem(`lpd_photo_${user.email}`)
-			localStorage.removeItem(`lpd_banner_${user.email}`)
-			localStorage.removeItem(`lpd_bio_${user.email}`)
+			localStorage.removeItem(`lpd_photo_${uid}`)
+			localStorage.removeItem(`lpd_banner_${uid}`)
+			localStorage.removeItem(`lpd_bio_${uid}`)
+			window.netlifyIdentity?.currentUser()?.update({ data: { bio: "" } })
 
-			// Reset avatar
 			avatarEl.style.backgroundImage = ""
-			avatarEl.style.backgroundSize = ""
-			avatarEl.style.backgroundPosition = ""
-			avatarEl.textContent = user.username.charAt(0).toUpperCase()
-
-			// Reset bannière
+			avatarEl.style.backgroundSize  = ""
+			avatarEl.textContent = username.charAt(0).toUpperCase()
 			bannerEl.style.backgroundImage = ""
-			bannerEl.style.backgroundSize = ""
-			bannerEl.style.backgroundPosition = ""
-
-			// Reset bio
+			bannerEl.style.backgroundSize  = ""
 			bioEl.innerText = "Aucune bio pour l'instant."
 
 			showFeedback("Profil réinitialisé.", "reset")
@@ -379,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// --- Activité récente ---
-	const activite = JSON.parse(localStorage.getItem(`lpd_activite_${user.email}`) || "[]")
+	const activite = JSON.parse(localStorage.getItem(`lpd_activite_${uid}`) || "[]")
 	const activiteContainer = document.getElementById("profil-activite")
 	if (activiteContainer && activite.length > 0) {
 		activiteContainer.innerHTML = ""
@@ -394,4 +384,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			activiteContainer.appendChild(el)
 		})
 	}
+}
+
+// ============================================================
+// Init — attendre Netlify Identity
+// ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+	if (!window.netlifyIdentity) {
+		window.location.href = "../index.html"
+		return
+	}
+	netlifyIdentity.on("init", user => {
+		if (!user) { window.location.href = "../index.html"; return }
+		initProfil(user)
+	})
 })
