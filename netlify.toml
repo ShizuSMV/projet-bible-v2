@@ -1,5 +1,5 @@
 [build]
-  command = "npm run sass"
+  command = "npx sass scss/index.scss:css/index.css scss/hub.scss:css/hub.css scss/chapitre.scss:css/chapitre.css scss/categorie.scss:css/categorie.css scss/communaute.scss:css/communaute.css scss/legal.scss:css/legal.css scss/profil.scss:css/profil.css scss/recherche.scss:css/recherche.css --no-source-map"
   publish = "."
 
 [[headers]]
