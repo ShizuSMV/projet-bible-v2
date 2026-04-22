@@ -12,7 +12,7 @@
 [[headers]]
   for = "/api/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/css/*"
