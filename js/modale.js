@@ -411,7 +411,18 @@ function showUserMenu() {
 // ============================================================
 // Mise à jour de la nav
 // ============================================================
+function registerUserLocally(user) {
+	const username = user.user_metadata?.full_name || user.email.split("@")[0]
+	const users = JSON.parse(localStorage.getItem("lpd_users") || "[]")
+	const exists = users.some(u => u.id === user.id)
+	if (!exists) {
+		users.push({ id: user.id, email: user.email, username, createdAt: user.created_at })
+		localStorage.setItem("lpd_users", JSON.stringify(users))
+	}
+}
+
 function updateNavForLoggedInUser(user) {
+	registerUserLocally(user)
 	const name = user.user_metadata?.full_name || user.email.split("@")[0]
 	document.querySelectorAll("#create-account-link").forEach(el => {
 		el.textContent = name

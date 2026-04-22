@@ -19,13 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.body.appendChild(modal)
 
 	function openProfilModal(user) {
-		const photo     = localStorage.getItem(`lpd_photo_${user.email}`)
-		const banner    = localStorage.getItem(`lpd_banner_${user.email}`)
-		const bio       = localStorage.getItem(`lpd_bio_${user.email}`) || "Aucune bio."
-		const streak    = parseInt(localStorage.getItem(`lpd_streak_${user.email}`) || "0")
-		const streakMax = parseInt(localStorage.getItem(`lpd_streak_max_${user.email}`) || streak)
-		const shares    = parseInt(localStorage.getItem(`lpd_shares_${user.email}`) || "0")
-		const versets   = parseInt(localStorage.getItem(`lpd_versets_${user.email}`) || "0")
+		const key       = user.id || user.email
+		const photo     = localStorage.getItem(`lpd_photo_${key}`)
+		const banner    = localStorage.getItem(`lpd_banner_${key}`)
+		const bio       = localStorage.getItem(`lpd_bio_${key}`) || "Aucune bio."
+		const streak    = parseInt(localStorage.getItem(`lpd_streak_${key}`) || "0")
+		const streakMax = parseInt(localStorage.getItem(`lpd_streak_max_${key}`) || streak)
+		const shares    = parseInt(localStorage.getItem(`lpd_shares_${key}`) || "0")
+		const versets   = parseInt(localStorage.getItem(`lpd_versets_${key}`) || "0")
 		const since     = user.createdAt
 			? new Date(user.createdAt).toLocaleDateString("fr-FR", { month: "long", year: "numeric" })
 			: "—"
@@ -109,12 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function buildCard(user) {
-		const photo     = localStorage.getItem(`lpd_photo_${user.email}`)
-		const banner    = localStorage.getItem(`lpd_banner_${user.email}`)
+		const key       = user.id || user.email
+		const photo     = localStorage.getItem(`lpd_photo_${key}`)
+		const banner    = localStorage.getItem(`lpd_banner_${key}`)
 		const initial   = user.username.charAt(0).toUpperCase()
-		const streak    = parseInt(localStorage.getItem(`lpd_streak_${user.email}`) || "0")
-		const streakMax = parseInt(localStorage.getItem(`lpd_streak_max_${user.email}`) || streak)
-		const shares    = parseInt(localStorage.getItem(`lpd_shares_${user.email}`) || "0")
+		const streak    = parseInt(localStorage.getItem(`lpd_streak_${key}`) || "0")
+		const streakMax = parseInt(localStorage.getItem(`lpd_streak_max_${key}`) || streak)
+		const shares    = parseInt(localStorage.getItem(`lpd_shares_${key}`) || "0")
 		const createdAt = user.createdAt
 			? new Date(user.createdAt).toLocaleDateString("fr-FR", { month: "short", year: "numeric" })
 			: "—"
@@ -168,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	function renderCarousel(users) {
 		track.innerHTML = ""
 		if (!users.length) {
-			track.closest(".communaute__membres-carousel").style.display = "none"
+			const carousel = track.closest(".communaute__membres-carousel")
+			carousel.innerHTML = `<p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,.35);font-style:italic;text-align:center;padding:32px 0;">Soyez le premier à rejoindre la communauté — connectez-vous pour apparaître ici.</p>`
 			return
 		}
 
