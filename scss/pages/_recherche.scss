@@ -1,0 +1,162 @@
+// ============================================================
+// PAGES — Recherche
+// ============================================================
+
+@use "../abstracts/variables" as *;
+
+.recherche-page {
+	width: 100%;
+	min-height: 60vh;
+	padding: 80px 24px;
+
+	&__inner {
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	&__title {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 1rem;
+		font-weight: 700;
+		color: $color-soft;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	// ── Barre de recherche ──
+	&__bar-wrap {
+		display: flex;
+		gap: 0;
+		width: 100%;
+	}
+
+	&__input {
+		flex: 1;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba($color-accent, 0.25);
+		border-right: none;
+		border-radius: 8px 0 0 8px;
+		color: $color-soft;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.1rem;
+		padding: 12px 18px;
+		outline: none;
+		transition: border-color 0.2s;
+
+		&::placeholder { color: rgba(255, 255, 255, 0.25); font-style: italic; }
+		&:focus { border-color: rgba($color-accent, 0.55); }
+	}
+
+	&__btn {
+		background: rgba($color-accent, 0.15);
+		border: 1px solid rgba($color-accent, 0.25);
+		border-radius: 0 8px 8px 0;
+		color: $color-accent;
+		cursor: pointer;
+		padding: 0 18px;
+		display: flex;
+		align-items: center;
+		transition: background 0.2s;
+
+		&:hover { background: rgba($color-accent, 0.28); }
+	}
+
+	// ── Statut ──
+	&__status {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.9rem;
+		font-style: italic;
+		color: rgba(255, 255, 255, 0.4);
+		margin: 0;
+		min-height: 20px;
+	}
+
+	// ── Résultats ──
+	&__results {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	// ── Charger plus ──
+	&__more {
+		align-self: center;
+		background: none;
+		border: 1px solid rgba($color-accent, 0.3);
+		border-radius: 6px;
+		color: $color-accent;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.95rem;
+		letter-spacing: 0.06em;
+		padding: 10px 32px;
+		cursor: pointer;
+		transition: background 0.2s, border-color 0.2s;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+
+		&:hover { background: rgba($color-accent, 0.1); border-color: rgba($color-accent, 0.6); }
+	}
+}
+
+.recherche__card {
+	background: rgba($color-accent, 0.04);
+	border: 1px solid rgba($color-accent, 0.12);
+	border-radius: 10px;
+	padding: 16px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	transition: background 0.15s, border-color 0.15s;
+
+	&:hover { background: rgba($color-accent, 0.09); border-color: rgba($color-accent, 0.3); }
+
+	&-ref {
+		font-family: "Cinzel Decorative", serif;
+		font-size: 0.65rem;
+		color: $color-accent;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		text-decoration: none;
+		width: fit-content;
+		transition: opacity 0.15s;
+
+		&:hover { opacity: 0.7; }
+	}
+
+	&-text {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.05rem;
+		font-style: italic;
+		color: $color-soft;
+		opacity: 0.85;
+		line-height: 1.65;
+		margin: 0;
+
+		mark {
+			background: rgba($color-accent, 0.25);
+			color: $color-accent;
+			border-radius: 2px;
+			padding: 0 2px;
+			font-style: normal;
+		}
+	}
+}
+
+// ── Item "Voir tous" dans le dropdown ──
+.search-dropdown__item--all {
+	border-top: 1px solid rgba($color-accent, 0.12);
+	margin-top: 2px;
+
+	.search-dropdown__label { color: $color-accent; }
+}
+
+// ── Responsive ──
+@media (max-width: 600px) {
+	.recherche-page { padding: 60px 16px; }
+}

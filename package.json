@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"description": "Site de lecture et d'étude de la Bible",
 	"scripts": {
-		"sass": "sass scss/index.scss:css/index.css scss/hub.scss:css/hub.css scss/chapitre.scss:css/chapitre.css scss/categorie.scss:css/categorie.css scss/communaute.scss:css/communaute.css scss/legal.scss:css/legal.css",
-		"watch": "sass --watch scss/index.scss:css/index.css scss/hub.scss:css/hub.css scss/chapitre.scss:css/chapitre.css scss/categorie.scss:css/categorie.css scss/communaute.scss:css/communaute.css scss/legal.scss:css/legal.css"
+		"sass": "sass scss/index.scss:css/index.css scss/hub.scss:css/hub.css scss/chapitre.scss:css/chapitre.css scss/categorie.scss:css/categorie.css scss/communaute.scss:css/communaute.css scss/legal.scss:css/legal.css scss/profil.scss:css/profil.css scss/recherche.scss:css/recherche.css",
+		"watch": "sass --watch scss/index.scss:css/index.css scss/hub.scss:css/hub.css scss/chapitre.scss:css/chapitre.css scss/categorie.scss:css/categorie.css scss/communaute.scss:css/communaute.css scss/legal.scss:css/legal.css scss/profil.scss:css/profil.css scss/recherche.scss:css/recherche.css"
 	},
 	"dependencies": {
 		"sass": "^1.98.0"
