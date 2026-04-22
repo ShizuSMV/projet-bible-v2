@@ -6,7 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
 	const track = document.getElementById("membres-track")
 	if (!track) return
 
+	// Marquer l'utilisateur courant comme actif
+	if (window.netlifyIdentity) {
+		netlifyIdentity.on("init", user => {
+			if (user) {
+				localStorage.setItem(`lpd_last_seen_${user.id}`, Date.now())
+			}
+		})
+	}
+
 	const users = JSON.parse(localStorage.getItem("lpd_users") || "[]")
+
+	// Compteur en ligne (actif < 5 min)
+	const ONLINE_THRESHOLD = 5 * 60 * 1000
+	const onlineCount = users.filter(u => {
+		const seen = parseInt(localStorage.getItem(`lpd_last_seen_${u.id}`) || "0")
+		return Date.now() - seen < ONLINE_THRESHOLD
+	}).length
+	const onlineEl = document.getElementById("online-count")
+	const totalEl  = document.getElementById("total-count")
+	if (onlineEl) onlineEl.textContent = onlineCount
+	if (totalEl)  totalEl.textContent  = users.length
 
 	// --- Modale profil ---
 	const overlay = document.createElement("div")

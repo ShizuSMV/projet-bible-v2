@@ -145,6 +145,40 @@
   opacity: 1;
   color: #d4af37;
 }
+.communaute__membres-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.communaute__online-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.communaute__online-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf72;
+  box-shadow: 0 0 6px rgba(76, 175, 114, 0.7);
+  flex-shrink: 0;
+}
+.communaute #online-count {
+  color: #4caf72;
+  font-weight: 600;
+}
+.communaute__online-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+.communaute__online-label {
+  color: rgba(255, 255, 255, 0.35);
+}
 .communaute__membres-carousel {
   overflow: hidden;
   width: 100%;
