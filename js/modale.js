@@ -61,9 +61,16 @@ function resetAccountModal() {
 	if (!form) return
 
 	form.innerHTML = `
-		<div class="modale-header">
-			<p class="modale-eyebrow">Bienvenue</p>
-			<p class="modale-subtitle">Accédez à votre espace personnel</p>
+		<div class="modale-welcome-icon" aria-hidden="true">
+			<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="12" cy="8" r="4"/>
+				<path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+			</svg>
+		</div>
+		<div class="modale-header" style="text-align:center;align-items:center;">
+			<p class="modale-eyebrow">Espace personnel</p>
+			<h2 class="modale-title">La Parole de Dieu</h2>
+			<p class="modale-subtitle">Connectez-vous ou créez un compte</p>
 		</div>
 		<div class="modale-divider"></div>
 		<button type="button" class="account-submit" id="login-btn">Se connecter</button>

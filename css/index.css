@@ -464,6 +464,18 @@ body {
   gap: 18px;
 }
 
+.modale-welcome-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  margin-bottom: 4px;
+}
+
 .modale-header {
   display: flex;
   flex-direction: column;
