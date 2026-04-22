@@ -389,13 +389,20 @@ function initProfil(user) {
 // ============================================================
 // Init — attendre Netlify Identity
 // ============================================================
-document.addEventListener("DOMContentLoaded", () => {
-	if (!window.netlifyIdentity) {
-		window.location.href = "../index.html"
-		return
-	}
-	netlifyIdentity.on("init", user => {
+// Le script est defer : le DOM est déjà prêt, pas besoin de DOMContentLoaded.
+// L'enregistrer directement évite que "init" tire avant que le listener soit posé.
+if (!window.netlifyIdentity) {
+	window.location.href = "../index.html"
+} else {
+	let _profilStarted = false
+	function _startProfil(user) {
+		if (_profilStarted) return
+		_profilStarted = true
 		if (!user) { window.location.href = "../index.html"; return }
 		initProfil(user)
-	})
-})
+	}
+	netlifyIdentity.on("init", _startProfil)
+	// Fallback si "init" a déjà tiré
+	const _existing = netlifyIdentity.currentUser()
+	if (_existing) _startProfil(_existing)
+}
