@@ -310,13 +310,14 @@ async function initProfil(user) {
 
 	if (typeof sbGetStats !== 'undefined') {
 		try {
-			const [stats, favorites] = await Promise.all([
+			const [stats, favorites, readVerses] = await Promise.all([
 				sbGetStats(uid),
-				sbGetFavorites(uid)
+				sbGetFavorites(uid),
+				sbGetRead(uid)
 			])
 
-			if (streakEl)  streakEl.textContent  = stats?.streak      || 0
-			if (versetsEl) versetsEl.textContent = stats?.versets_lus || 0
+			if (streakEl)  streakEl.textContent  = stats?.streak || 0
+			if (versetsEl) versetsEl.textContent = readVerses.length
 			if (favorisEl) favorisEl.textContent = favorites.length
 
 			if (favorisContainer && favorites.length > 0) {

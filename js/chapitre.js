@@ -49,8 +49,10 @@ async function loadChapter() {
 
 	// Titre
 	document.title = `${bookName} ${chapter} — La Parole de Dieu`
-	document.getElementById("chapitre-book-name").textContent = bookName
-	document.getElementById("chapitre-title").textContent = `Chapitre ${chapter}`
+	const bookNameEl = document.getElementById("chapitre-book-name")
+	const titleEl    = document.getElementById("chapitre-title")
+	if (bookNameEl) bookNameEl.textContent = bookName
+	if (titleEl)    titleEl.textContent    = `Chapitre ${chapter}`
 
 	// Contenu
 	const container = document.getElementById("chapitre-content")
@@ -185,11 +187,15 @@ async function initInteractions() {
 	const verseDivs = document.querySelectorAll('.chapitre__verse')
 
 	const [, favorites, saved, read] = await Promise.all([
-		sbTrackRead(uid, verseDivs.length),
+		sbTrackRead(uid),
 		sbGetFavorites(uid),
 		sbGetSaved(uid),
 		sbGetRead(uid)
 	])
+
+	console.log('[debug] uid:', uid)
+	console.log('[debug] read_verses:', read)
+	console.log('[debug] favorites:', favorites)
 
 	const favRefs   = new Set(favorites.map(f => f.ref))
 	const savedRefs = new Set(saved.map(s => s.ref))

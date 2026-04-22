@@ -19,36 +19,33 @@ async function sbGetStats(uid) {
 		.from('user_stats')
 		.select('*')
 		.eq('user_id', uid)
-		.single()
-	return data
+		.limit(1)
+	return data?.[0] ?? null
 }
 
-async function sbTrackRead(uid, verseCount) {
+async function sbTrackRead(uid) {
 	const today     = new Date().toISOString().slice(0, 10)
 	const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
 
 	const stats = await sbGetStats(uid)
 
-	let streak     = stats?.streak     ?? 0
-	let streakMax  = stats?.streak_max ?? 0
-	let versetsLus = stats?.versets_lus ?? 0
+	let streak    = stats?.streak    ?? 0
+	let streakMax = stats?.streak_max ?? 0
 	const lastDate = stats?.last_read_date
 
 	if (lastDate !== today) {
 		streak    = lastDate === yesterday ? streak + 1 : 1
 		streakMax = Math.max(streak, streakMax)
-		versetsLus += verseCount
 	}
 
 	await _db().from('user_stats').upsert({
 		user_id:        uid,
 		streak,
 		streak_max:     streakMax,
-		versets_lus:    versetsLus,
 		last_read_date: today
 	})
 
-	return { streak, streakMax, versetsLus }
+	return { streak, streakMax }
 }
 
 // --- Helpers génériques ---
