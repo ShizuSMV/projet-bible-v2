@@ -1,25 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <defs>
-    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="1.8" result="blur1"/>
-      <feGaussianBlur stdDeviation="3.5" result="blur2"/>
+    <filter id="glow-soft" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.8" result="blur2"/>
+      <feColorMatrix in="blur2" type="matrix"
+        values="1 0.8 0 0 0
+                0.8 0.6 0 0 0
+                0   0   0 0 0
+                0   0   0 1 0" result="gold"/>
       <feMerge>
-        <feMergeNode in="blur2"/>
+        <feMergeNode in="gold"/>
         <feMergeNode in="blur1"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
 
-  <!-- Fond sombre -->
+  <!-- Fond -->
   <rect width="32" height="32" rx="5" fill="#111"/>
 
-  <!-- Barre horizontale longue (traverse complète) -->
-  <rect x="5" y="14.2" width="22" height="1.2" rx="0.6" fill="#e8d48a" filter="url(#glow)" opacity="0.9"/>
+  <!-- Barre verticale principale (longue) -->
+  <rect x="15.2" y="2" width="1.6" height="28" rx="0.8" fill="#f5f0e0" filter="url(#glow-soft)"/>
 
-  <!-- Barre verticale longue (traverse complète) -->
-  <rect x="14.8" y="3" width="1.2" height="26" rx="0.6" fill="#e8d48a" filter="url(#glow)" opacity="0.9"/>
-
-  <!-- Centre lumineux -->
-  <circle cx="15.4" cy="14.8" r="1.2" fill="#fff" filter="url(#glow)" opacity="0.85"/>
+  <!-- Barre horizontale principale -->
+  <rect x="4" y="11.2" width="24" height="1.6" rx="0.8" fill="#f5f0e0" filter="url(#glow-soft)"/>
 </svg>
