@@ -141,47 +141,88 @@ loadChapter().then(() => {
 	initInteractions()
 })
 
+const _ICON = {
+	heartOff:     `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+	heartOn:      `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+	bookmarkOff:  `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`,
+	bookmarkOn:   `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`,
+	checkOff:     `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>`,
+	checkOn:      `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+}
+
+function _makeActionBtn({ mod, iconOff, iconOn, label, active, onAdd, onRemove, refs, ref }) {
+	const btn = document.createElement('button')
+	btn.type = 'button'
+	btn.className = `chapitre__action-btn chapitre__action-btn--${mod}${active ? ' chapitre__action-btn--active' : ''}`
+	btn.setAttribute('aria-label', label)
+	btn.innerHTML = active ? iconOn : iconOff
+
+	btn.addEventListener('click', async () => {
+		if (refs.has(ref)) {
+			await onRemove()
+			refs.delete(ref)
+			btn.innerHTML = iconOff
+			btn.classList.remove('chapitre__action-btn--active')
+		} else {
+			await onAdd()
+			refs.add(ref)
+			btn.innerHTML = iconOn
+			btn.classList.add('chapitre__action-btn--active')
+		}
+	})
+	return btn
+}
+
 async function initInteractions() {
 	const user = window.netlifyIdentity?.currentUser()
 	if (!user || typeof sbTrackRead === 'undefined') return
 
-	const uid      = user.id
+	const uid       = user.id
 	const verseDivs = document.querySelectorAll('.chapitre__verse')
-	const verseCount = verseDivs.length
 
-	// Tracker la lecture + charger les favoris en parallèle
-	const [, favorites] = await Promise.all([
-		sbTrackRead(uid, verseCount),
-		sbGetFavorites(uid)
+	const [, favorites, saved, read] = await Promise.all([
+		sbTrackRead(uid, verseDivs.length),
+		sbGetFavorites(uid),
+		sbGetSaved(uid),
+		sbGetRead(uid)
 	])
 
-	const favRefs = new Set(favorites.map(f => f.ref))
+	const favRefs   = new Set(favorites.map(f => f.ref))
+	const savedRefs = new Set(saved.map(s => s.ref))
+	const readRefs  = new Set(read.map(r => r.ref))
 
 	verseDivs.forEach(div => {
 		const verseNum = parseInt(div.dataset.verse)
 		const ref      = `${bookName} ${chapter}:${verseNum}`
 		const rawText  = div.querySelector('.chapitre__verse-text')?.textContent || ''
 
-		const btn = document.createElement('button')
-		btn.type = 'button'
-		btn.className = 'chapitre__fav-btn' + (favRefs.has(ref) ? ' chapitre__fav-btn--active' : '')
-		btn.setAttribute('aria-label', 'Ajouter aux favoris')
-		btn.textContent = favRefs.has(ref) ? '♥' : '♡'
+		const actions = document.createElement('div')
+		actions.className = 'chapitre__verse-actions'
 
-		btn.addEventListener('click', async () => {
-			if (favRefs.has(ref)) {
-				await sbRemoveFavorite(uid, ref)
-				favRefs.delete(ref)
-				btn.textContent = '♡'
-				btn.classList.remove('chapitre__fav-btn--active')
-			} else {
-				await sbAddFavorite(uid, ref, rawText)
-				favRefs.add(ref)
-				btn.textContent = '♥'
-				btn.classList.add('chapitre__fav-btn--active')
-			}
-		})
+		actions.appendChild(_makeActionBtn({
+			mod: 'fav', label: 'Favori',
+			iconOff: _ICON.heartOff, iconOn: _ICON.heartOn,
+			active: favRefs.has(ref), refs: favRefs, ref,
+			onAdd:    () => sbAddFavorite(uid, ref, rawText),
+			onRemove: () => sbRemoveFavorite(uid, ref),
+		}))
 
-		div.appendChild(btn)
+		actions.appendChild(_makeActionBtn({
+			mod: 'save', label: 'Enregistrer',
+			iconOff: _ICON.bookmarkOff, iconOn: _ICON.bookmarkOn,
+			active: savedRefs.has(ref), refs: savedRefs, ref,
+			onAdd:    () => sbAddSaved(uid, ref, rawText),
+			onRemove: () => sbRemoveSaved(uid, ref),
+		}))
+
+		actions.appendChild(_makeActionBtn({
+			mod: 'read', label: 'Marquer comme lu',
+			iconOff: _ICON.checkOff, iconOn: _ICON.checkOn,
+			active: readRefs.has(ref), refs: readRefs, ref,
+			onAdd:    () => sbAddRead(uid, ref),
+			onRemove: () => sbRemoveRead(uid, ref),
+		}))
+
+		div.appendChild(actions)
 	})
 }

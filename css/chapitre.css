@@ -85,26 +85,37 @@
   align-items: baseline;
   width: 100%;
 }
-.chapitre__fav-btn {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  padding: 2px 4px;
-  transition: color 0.15s, transform 0.1s;
-  line-height: 1;
+.chapitre__verse-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
   align-self: center;
 }
-.chapitre__fav-btn:hover {
-  color: rgba(212, 175, 55, 0.7);
-  transform: scale(1.2);
+.chapitre__action-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, transform 0.1s;
 }
-.chapitre__fav-btn--active {
+.chapitre__action-btn:hover {
+  color: rgba(212, 175, 55, 0.65);
+  transform: scale(1.15);
+}
+.chapitre__action-btn--active {
   color: #d4af37;
 }
-.chapitre__fav-btn--active:hover {
-  color: rgba(212, 175, 55, 0.6);
+.chapitre__action-btn--fav.chapitre__action-btn--active {
+  color: #e07878;
+}
+.chapitre__action-btn--save.chapitre__action-btn--active {
+  color: #d4af37;
+}
+.chapitre__action-btn--read.chapitre__action-btn--active {
+  color: #4caf72;
 }
 .chapitre__verse-num {
   font-family: "Cinzel Decorative", serif;
