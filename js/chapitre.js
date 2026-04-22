@@ -158,16 +158,20 @@ function _makeActionBtn({ mod, iconOff, iconOn, label, active, onAdd, onRemove, 
 	btn.innerHTML = active ? iconOn : iconOff
 
 	btn.addEventListener('click', async () => {
-		if (refs.has(ref)) {
-			await onRemove()
-			refs.delete(ref)
-			btn.innerHTML = iconOff
-			btn.classList.remove('chapitre__action-btn--active')
-		} else {
-			await onAdd()
-			refs.add(ref)
-			btn.innerHTML = iconOn
-			btn.classList.add('chapitre__action-btn--active')
+		try {
+			if (refs.has(ref)) {
+				await onRemove()
+				refs.delete(ref)
+				btn.innerHTML = iconOff
+				btn.classList.remove('chapitre__action-btn--active')
+			} else {
+				await onAdd()
+				refs.add(ref)
+				btn.innerHTML = iconOn
+				btn.classList.add('chapitre__action-btn--active')
+			}
+		} catch (err) {
+			console.error("[Supabase verset]", err)
 		}
 	})
 	return btn

@@ -309,26 +309,30 @@ async function initProfil(user) {
 	const favorisContainer = document.getElementById("profil-favoris")
 
 	if (typeof sbGetStats !== 'undefined') {
-		const [stats, favorites] = await Promise.all([
-			sbGetStats(uid),
-			sbGetFavorites(uid)
-		])
+		try {
+			const [stats, favorites] = await Promise.all([
+				sbGetStats(uid),
+				sbGetFavorites(uid)
+			])
 
-		if (streakEl)  streakEl.textContent  = stats?.streak      || 0
-		if (versetsEl) versetsEl.textContent = stats?.versets_lus || 0
-		if (favorisEl) favorisEl.textContent = favorites.length
+			if (streakEl)  streakEl.textContent  = stats?.streak      || 0
+			if (versetsEl) versetsEl.textContent = stats?.versets_lus || 0
+			if (favorisEl) favorisEl.textContent = favorites.length
 
-		if (favorisContainer && favorites.length > 0) {
-			favorisContainer.innerHTML = ""
-			favorites.slice(0, 6).forEach(fav => {
-				const card = document.createElement("div")
-				card.className = "profil__favori-card"
-				card.innerHTML = `
-					<span class="profil__favori-ref">${fav.ref}</span>
-					<p class="profil__favori-text">${fav.text}</p>
-				`
-				favorisContainer.appendChild(card)
-			})
+			if (favorisContainer && favorites.length > 0) {
+				favorisContainer.innerHTML = ""
+				favorites.slice(0, 6).forEach(fav => {
+					const card = document.createElement("div")
+					card.className = "profil__favori-card"
+					card.innerHTML = `
+						<span class="profil__favori-ref">${fav.ref}</span>
+						<p class="profil__favori-text">${fav.text}</p>
+					`
+					favorisContainer.appendChild(card)
+				})
+			}
+		} catch (err) {
+			console.error("[Supabase profil]", err)
 		}
 	}
 
