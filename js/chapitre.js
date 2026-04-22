@@ -136,4 +136,52 @@ function scrollToVerse() {
 	el.addEventListener("animationend", () => el.classList.remove("chapitre__verse--highlight"), { once: true })
 }
 
-loadChapter().then(scrollToVerse)
+loadChapter().then(() => {
+	scrollToVerse()
+	initInteractions()
+})
+
+async function initInteractions() {
+	const user = window.netlifyIdentity?.currentUser()
+	if (!user || typeof sbTrackRead === 'undefined') return
+
+	const uid      = user.id
+	const verseDivs = document.querySelectorAll('.chapitre__verse')
+	const verseCount = verseDivs.length
+
+	// Tracker la lecture + charger les favoris en parallèle
+	const [, favorites] = await Promise.all([
+		sbTrackRead(uid, verseCount),
+		sbGetFavorites(uid)
+	])
+
+	const favRefs = new Set(favorites.map(f => f.ref))
+
+	verseDivs.forEach(div => {
+		const verseNum = parseInt(div.dataset.verse)
+		const ref      = `${bookName} ${chapter}:${verseNum}`
+		const rawText  = div.querySelector('.chapitre__verse-text')?.textContent || ''
+
+		const btn = document.createElement('button')
+		btn.type = 'button'
+		btn.className = 'chapitre__fav-btn' + (favRefs.has(ref) ? ' chapitre__fav-btn--active' : '')
+		btn.setAttribute('aria-label', 'Ajouter aux favoris')
+		btn.textContent = favRefs.has(ref) ? '♥' : '♡'
+
+		btn.addEventListener('click', async () => {
+			if (favRefs.has(ref)) {
+				await sbRemoveFavorite(uid, ref)
+				favRefs.delete(ref)
+				btn.textContent = '♡'
+				btn.classList.remove('chapitre__fav-btn--active')
+			} else {
+				await sbAddFavorite(uid, ref, rawText)
+				favRefs.add(ref)
+				btn.textContent = '♥'
+				btn.classList.add('chapitre__fav-btn--active')
+			}
+		})
+
+		div.appendChild(btn)
+	})
+}

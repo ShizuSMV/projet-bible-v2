@@ -93,10 +93,29 @@
 
 	&__verse {
 		display: grid;
-		grid-template-columns: 28px 1fr;
+		grid-template-columns: 28px 1fr auto;
 		gap: 12px;
 		align-items: baseline;
 		width: 100%;
+	}
+
+	&__fav-btn {
+		background: none;
+		border: none;
+		font-size: 1rem;
+		color: rgba(255, 255, 255, 0.2);
+		cursor: pointer;
+		padding: 2px 4px;
+		transition: color 0.15s, transform 0.1s;
+		line-height: 1;
+		align-self: center;
+
+		&:hover { color: rgba(212, 175, 55, 0.7); transform: scale(1.2); }
+
+		&--active {
+			color: $color-accent;
+			&:hover { color: rgba(212, 175, 55, 0.6); }
+		}
 	}
 
 	&__verse-num {

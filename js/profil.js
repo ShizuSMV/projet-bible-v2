@@ -175,7 +175,7 @@ function openImageEditor(file, cropW, cropH, outputW, outputH, isCircle, onConfi
 // PROFIL — Chargement des données utilisateur
 // ============================================================
 
-function initProfil(user) {
+async function initProfil(user) {
 	const uid      = user.id
 	const username = user.user_metadata?.full_name || user.email.split("@")[0]
 
@@ -302,32 +302,34 @@ function initProfil(user) {
 		})
 	}
 
-	// --- Statistiques ---
-	const favorites = JSON.parse(localStorage.getItem(`lpd_favorites_${uid}`) || "[]")
-	const streak    = parseInt(localStorage.getItem(`lpd_streak_${uid}`) || "0")
-	const versets   = parseInt(localStorage.getItem(`lpd_versets_${uid}`) || "0")
-
+	// --- Statistiques & Favoris (Supabase) ---
 	const streakEl  = document.getElementById("stat-streak")
 	const versetsEl = document.getElementById("stat-versets")
 	const favorisEl = document.getElementById("stat-favoris")
-
-	if (streakEl)  streakEl.textContent  = streak
-	if (versetsEl) versetsEl.textContent = versets
-	if (favorisEl) favorisEl.textContent = favorites.length
-
-	// --- Liste des favoris ---
 	const favorisContainer = document.getElementById("profil-favoris")
-	if (favorisContainer && favorites.length > 0) {
-		favorisContainer.innerHTML = ""
-		favorites.slice(0, 6).forEach(fav => {
-			const card = document.createElement("div")
-			card.className = "profil__favori-card"
-			card.innerHTML = `
-				<span class="profil__favori-ref">${fav.ref}</span>
-				<p class="profil__favori-text">${fav.text}</p>
-			`
-			favorisContainer.appendChild(card)
-		})
+
+	if (typeof sbGetStats !== 'undefined') {
+		const [stats, favorites] = await Promise.all([
+			sbGetStats(uid),
+			sbGetFavorites(uid)
+		])
+
+		if (streakEl)  streakEl.textContent  = stats?.streak      || 0
+		if (versetsEl) versetsEl.textContent = stats?.versets_lus || 0
+		if (favorisEl) favorisEl.textContent = favorites.length
+
+		if (favorisContainer && favorites.length > 0) {
+			favorisContainer.innerHTML = ""
+			favorites.slice(0, 6).forEach(fav => {
+				const card = document.createElement("div")
+				card.className = "profil__favori-card"
+				card.innerHTML = `
+					<span class="profil__favori-ref">${fav.ref}</span>
+					<p class="profil__favori-text">${fav.text}</p>
+				`
+				favorisContainer.appendChild(card)
+			})
+		}
 	}
 
 	// --- Boutons Enregistrer / Réinitialiser ---
