@@ -1,0 +1,17 @@
+// ============================================================
+// COMPOSANT — Voile de chargement
+// ============================================================
+
+.voile {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background: #000;
+	opacity: 1;
+	pointer-events: none;
+	transition: opacity 0.9s ease;
+
+	&--hidden {
+		opacity: 0;
+	}
+}
