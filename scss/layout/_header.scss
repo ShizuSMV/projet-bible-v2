@@ -123,7 +123,7 @@
 		top: 22px;
 		right: 103px;
 		transform: rotate(0deg);
-		animation: logo-fadein 0.5s ease 0.5s both;
+		animation: logo-fadein 0.5s ease 1s both;
 	}
 
 	&__cross-bar-5 {
@@ -138,7 +138,7 @@
 		top: 6px;
 		right: -37px;
 		transform: rotate(0deg);
-		animation: logo-fadein 0.5s ease 0.5s both;
+		animation: logo-fadein 0.5s ease 1s both;
 	}
 
 	&__cross-bar-6 {
@@ -172,6 +172,7 @@
 		transition:
 			transform $transition,
 			color $transition;
+		animation: logo-fadein 0.5s ease both;
 	}
 
 	&__title-top {
@@ -223,7 +224,7 @@
 		position: relative;
 
 		&--la {
-			animation: logo-fadein 0.5s ease 0.5s both;
+			animation: logo-fadein 0.5s ease 1s both;
 			width: 80px;
 			bottom: 188px;
 			left: -108px;
@@ -234,6 +235,7 @@
 			bottom: 190px;
 			left: 52px;
 			animation: logo-fadein 0.5s ease 1s both;
+			display: none;
 		}
 	}
 
