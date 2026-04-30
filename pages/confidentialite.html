@@ -16,6 +16,9 @@
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		<!-- VOILE DE CHARGEMENT -->
+		<div id="voile" class="voile" aria-hidden="true"></div>
+
 		<!-- HEADER -->
 		<header class="header">
 			<div id="top"></div>
@@ -96,7 +99,7 @@
 			<h2 class="legal__section-title">5. Partage des données</h2>
 			<p class="legal__text">
 				Vos données ne sont jamais vendues ni cédées à des tiers à des fins commerciales.
-				Elles peuvent être transmises à nos sous-traitants techniques (hébergeur OVH) dans le cadre strict de l'exécution du service.
+				Elles peuvent être transmises à nos sous-traitants techniques (hébergeur Netlify, base de données Supabase) dans le cadre strict de l'exécution du service.
 			</p>
 
 			<div class="legal__divider"></div>
@@ -138,5 +141,15 @@
 				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
 			</div>
 		</footer>
+
+		<script>
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const voile = document.getElementById('voile');
+					voile.classList.add('voile--hidden');
+					voile.addEventListener('transitionend', () => voile.remove(), { once: true });
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

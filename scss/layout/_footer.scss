@@ -6,24 +6,30 @@
 @use "../abstracts/mixins" as *;
 
 .footer {
-	width: 100vw;
+	width: 100%;
 	background: #141414;
 	margin-top: 48px;
 	padding: 40px 6vw 24px 6vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	&__top {
 		@include flex-custom(column, center, center);
 		gap: 32px;
+		width: 100%;
 	}
 
 	&__columns {
-		@include flex-custom(row, center, flex-start);
-		gap: 40px;
+		@include flex-custom(row, space-between, flex-start);
+		width: 100%;
 	}
 
 	&__col {
-		@include flex-custom(column, flex-start, flex-start);
+		@include flex-custom(column, flex-start, center);
 		gap: 10px;
+		text-align: center;
+		width: 100px;
 	}
 
 	&__col-title {

@@ -16,6 +16,9 @@
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		<!-- VOILE DE CHARGEMENT -->
+		<div id="voile" class="voile" aria-hidden="true"></div>
+
 		<!-- HEADER -->
 		<header class="header">
 			<div id="top"></div>
@@ -79,16 +82,47 @@
 			<div class="legal__divider"></div>
 
 			<h2 class="legal__section-title">4. Règles de la communauté</h2>
-			<p class="legal__text">En utilisant les fonctionnalités sociales, vous vous engagez à ne pas publier de contenu :</p>
-			<ul class="legal__list">
-				<li>Illicite, diffamatoire, insultant ou haineux</li>
-				<li>À caractère pornographique, violent ou choquant</li>
-				<li>Portant atteinte aux droits d'autrui (propriété intellectuelle, vie privée)</li>
-				<li>À visée publicitaire ou commerciale non autorisée</li>
-				<li>Trompeur ou de nature à induire en erreur</li>
-			</ul>
 			<p class="legal__text">
-				Tout manquement à ces règles peut entraîner la suspension ou la suppression définitive du compte, sans préavis.
+				La Parole de Dieu est un espace de partage spirituel fondé sur le respect mutuel, la bienveillance et la foi.
+				En rejoignant la communauté, vous vous engagez à respecter les règles suivantes.
+			</p>
+
+			<h3 class="legal__subsection-title">Respect et bienveillance</h3>
+			<ul class="legal__list">
+				<li>Traiter chaque membre avec courtoisie et dignité, quelles que soient ses opinions ou sa façon de vivre sa foi.</li>
+				<li>Ne pas insulter, harceler, humilier ou menacer un autre utilisateur, que ce soit en public ou en privé.</li>
+				<li>Ne pas propager de rumeurs ou de fausses informations sur autrui.</li>
+				<li>Accueillir les nouveaux membres avec bienveillance et patience.</li>
+			</ul>
+
+			<h3 class="legal__subsection-title">Contenu interdit</h3>
+			<ul class="legal__list">
+				<li>Tout contenu à caractère sexuel, pornographique ou suggestif est strictement interdit, sans exception.</li>
+				<li>Tout contenu violent, gore ou incitant à la violence physique ou morale.</li>
+				<li>Les discours haineux fondés sur la religion, l'origine, la race, le sexe, l'orientation sexuelle, le handicap ou tout autre critère discriminatoire.</li>
+				<li>Le harcèlement, le cyberharcèlement ou toute forme d'intimidation répétée.</li>
+				<li>Les contenus illicites, diffamatoires ou portant atteinte à la vie privée d'autrui.</li>
+				<li>La publicité, le spam, les messages répétitifs sans valeur ajoutée.</li>
+				<li>Tout contenu trompeur, mensonger ou conçu pour manipuler autrui.</li>
+			</ul>
+
+			<h3 class="legal__subsection-title">Respect du cadre spirituel</h3>
+			<ul class="legal__list">
+				<li>Les échanges doivent rester dans un esprit de partage sincère et respectueux de la foi chrétienne.</li>
+				<li>Les débats théologiques sont les bienvenus dans la mesure où ils restent constructifs et respectueux.</li>
+				<li>Ne pas utiliser la plateforme pour dénigrer d'autres religions ou croyances.</li>
+				<li>Les versets et citations doivent être partagés fidèlement, sans détournement de sens à des fins malveillantes.</li>
+			</ul>
+
+			<h3 class="legal__subsection-title">Vie privée et confidentialité</h3>
+			<ul class="legal__list">
+				<li>Ne pas divulguer des informations personnelles d'un autre utilisateur sans son consentement.</li>
+				<li>Ne pas utiliser les données ou contenus d'autres membres à des fins extérieures à la plateforme.</li>
+			</ul>
+
+			<p class="legal__text">
+				Tout manquement à ces règles peut entraîner, selon la gravité, un avertissement, une suspension temporaire ou la suppression définitive du compte, sans préavis.
+				L'éditeur se réserve le droit de supprimer tout contenu jugé contraire à l'esprit de la communauté, même en l'absence de signalement explicite.
 			</p>
 
 			<div class="legal__divider"></div>
@@ -156,5 +190,15 @@
 				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
 			</div>
 		</footer>
+
+		<script>
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const voile = document.getElementById('voile');
+					voile.classList.add('voile--hidden');
+					voile.addEventListener('transitionend', () => voile.remove(), { once: true });
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

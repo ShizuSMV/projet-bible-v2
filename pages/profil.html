@@ -20,8 +20,12 @@
 		<script src="../js/supabase-client.js" defer></script>
 		<script src="../js/modale.js" defer></script>
 		<script src="../js/profil.js" defer></script>
+		<script src="../js/contact.js" defer></script>
 	</head>
 	<body>
+		<!-- VOILE DE CHARGEMENT -->
+		<div id="voile" class="voile" aria-hidden="true"></div>
+
 		<!-- HEADER -->
 		<header class="header">
 			<div id="top"></div>
@@ -59,6 +63,23 @@
 		<section id="account-section" class="account-section">
 			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
 			<form class="account-form"></form>
+		</section>
+
+		<!-- Modale contact -->
+		<section id="contact-section" class="contact-section">
+			<button type="button" class="account-close" id="contact-close-btn" aria-label="Fermer">✕</button>
+			<div class="modale-welcome-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+				</svg>
+			</div>
+			<div class="modale-header" style="text-align:center;align-items:center;">
+				<p class="modale-eyebrow">Contact</p>
+				<h2 class="modale-title">Nous écrire</h2>
+				<p class="modale-subtitle">Une question ? Une suggestion ?</p>
+			</div>
+			<div class="modale-divider"></div>
+			<a href="mailto:matteo.vandevraye@hotmail.fr" class="contact-section__email">matteo.vandevraye@hotmail.fr</a>
 		</section>
 
 		<!-- MAIN -->
@@ -117,21 +138,56 @@
 
 			<div class="profil__divider"></div>
 
-			<!-- Versets favoris -->
-			<section class="profil__section">
-				<h2 class="profil__section-title">Versets favoris</h2>
-				<div class="profil__favoris" id="profil-favoris">
-					<p class="profil__empty">Aucun verset mis en favori pour l'instant.</p>
+			<!-- Onglets -->
+			<nav class="profil__tabs">
+				<button class="profil__tab profil__tab--active" data-tab="favoris">Favoris</button>
+				<button class="profil__tab" data-tab="posts">Mes posts</button>
+				<button class="profil__tab" data-tab="amis">Amis</button>
+				<button class="profil__tab profil__tab--admin" id="profil-admin-tab" data-tab="admin" style="display:none;">⚙ Admin</button>
+			</nav>
+
+			<!-- Panel : Favoris & activité -->
+			<section class="profil__tab-panel profil__tab-panel--active" id="panel-favoris">
+				<section class="profil__section">
+					<h2 class="profil__section-title">Versets favoris</h2>
+					<div class="profil__favoris" id="profil-favoris">
+						<p class="profil__empty">Aucun verset mis en favori pour l'instant.</p>
+					</div>
+				</section>
+				<div class="profil__divider"></div>
+				<section class="profil__section">
+					<h2 class="profil__section-title">Activité récente</h2>
+					<div class="profil__activite" id="profil-activite">
+						<p class="profil__empty">Aucune activité récente.</p>
+					</div>
+				</section>
+			</section>
+
+			<!-- Panel : Mes posts -->
+			<section class="profil__tab-panel" id="panel-posts">
+				<div class="profil__posts" id="profil-posts">
+					<p class="profil__empty">Aucun post partagé pour l'instant.</p>
 				</div>
 			</section>
 
-			<div class="profil__divider"></div>
+			<!-- Panel : Amis -->
+			<section class="profil__tab-panel" id="panel-amis">
+				<div id="friend-requests-wrap" style="display:none;">
+					<h2 class="profil__section-title">Demandes reçues</h2>
+					<div class="profil__friend-requests" id="friend-requests"></div>
+					<div class="profil__divider" style="margin:24px 0;"></div>
+				</div>
+				<h2 class="profil__section-title">Mes amis</h2>
+				<div class="profil__friends" id="profil-friends">
+					<p class="profil__empty">Aucun ami pour l'instant.</p>
+				</div>
+			</section>
 
-			<!-- Activité récente -->
-			<section class="profil__section">
-				<h2 class="profil__section-title">Activité récente</h2>
-				<div class="profil__activite" id="profil-activite">
-					<p class="profil__empty">Aucune activité récente.</p>
+			<!-- Panel : Admin (invisible aux autres) -->
+			<section class="profil__tab-panel" id="panel-admin">
+				<h2 class="profil__section-title">⚑ Signalements en attente</h2>
+				<div class="profil__admin-reports" id="admin-reports">
+					<p class="profil__empty">Aucun signalement en attente.</p>
 				</div>
 			</section>
 
@@ -165,7 +221,7 @@
 					<div class="footer__col">
 						<span class="footer__col-title">Communauté</span>
 						<a href="communaute.html" class="footer__link">Rencontrer des gens</a>
-						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link" id="contact-link">Contact</a>
 						<a href="#" class="footer__link">À propos</a>
 					</div>
 					<div class="footer__col">
@@ -182,5 +238,15 @@
 				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
 			</div>
 		</footer>
+
+		<script>
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const voile = document.getElementById('voile');
+					voile.classList.add('voile--hidden');
+					voile.addEventListener('transitionend', () => voile.remove(), { once: true });
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

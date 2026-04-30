@@ -15,10 +15,16 @@
 		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
 
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+		<script src="../js/supabase-client.js" defer></script>
 		<script src="../js/modale.js" defer></script>
 		<script src="../js/communaute.js" defer></script>
+		<script src="../js/contact.js" defer></script>
 	</head>
 	<body>
+		<!-- VOILE DE CHARGEMENT -->
+		<div id="voile" class="voile" aria-hidden="true"></div>
+
 		<!-- HEADER -->
 		<header class="header">
 			<div id="top"></div>
@@ -58,6 +64,23 @@
 			<form class="account-form"></form>
 		</section>
 
+		<!-- Modale contact -->
+		<section id="contact-section" class="contact-section">
+			<button type="button" class="account-close" id="contact-close-btn" aria-label="Fermer">✕</button>
+			<div class="modale-welcome-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+				</svg>
+			</div>
+			<div class="modale-header" style="text-align:center;align-items:center;">
+				<p class="modale-eyebrow">Contact</p>
+				<h2 class="modale-title">Nous écrire</h2>
+				<p class="modale-subtitle">Une question ? Une suggestion ?</p>
+			</div>
+			<div class="modale-divider"></div>
+			<a href="mailto:matteo.vandevraye@hotmail.fr" class="contact-section__email">matteo.vandevraye@hotmail.fr</a>
+		</section>
+
 		<!-- MAIN -->
 		<main class="communaute">
 
@@ -72,56 +95,16 @@
 
 			<!-- Feed versets partagés -->
 			<h2 class="communaute__section-title">Versets partagés récemment</h2>
-			<div class="communaute__feed">
 
-				<div class="communaute__card">
-					<div class="communaute__card-header">
-						<div class="communaute__card-user">
-							<div class="communaute__card-avatar">M</div>
-							<span class="communaute__card-username">Matthieu</span>
-						</div>
-						<span class="communaute__card-ref">Philippiens 4:13</span>
-					</div>
-					<p class="communaute__card-text">« Je puis tout par celui qui me fortifie. »</p>
-					<div class="communaute__card-footer">
-						<button class="communaute__card-action">♡ Aimer</button>
-						<button class="communaute__card-action">↩ Répondre</button>
-						<button class="communaute__card-action">→ Lire le chapitre</button>
-					</div>
-				</div>
+			<!-- Formulaire (visible si connecté) -->
+			<div class="communaute__post-form" id="post-form" style="display:none;">
+				<input type="text" id="post-verse-ref" class="communaute__post-input" placeholder="Référence (ex : Jean 3:16)" autocomplete="off" />
+				<textarea id="post-content" class="communaute__post-textarea" maxlength="300" placeholder="Votre réflexion… (optionnel)"></textarea>
+				<button type="button" id="post-submit" class="communaute__post-btn">Partager</button>
+			</div>
 
-				<div class="communaute__card">
-					<div class="communaute__card-header">
-						<div class="communaute__card-user">
-							<div class="communaute__card-avatar">S</div>
-							<span class="communaute__card-username">Sophie</span>
-						</div>
-						<span class="communaute__card-ref">Psaumes 23:1</span>
-					</div>
-					<p class="communaute__card-text">« L'Éternel est mon berger : je ne manquerai de rien. »</p>
-					<div class="communaute__card-footer">
-						<button class="communaute__card-action">♡ Aimer</button>
-						<button class="communaute__card-action">↩ Répondre</button>
-						<button class="communaute__card-action">→ Lire le chapitre</button>
-					</div>
-				</div>
-
-				<div class="communaute__card">
-					<div class="communaute__card-header">
-						<div class="communaute__card-user">
-							<div class="communaute__card-avatar">L</div>
-							<span class="communaute__card-username">Lucas</span>
-						</div>
-						<span class="communaute__card-ref">Jean 14:6</span>
-					</div>
-					<p class="communaute__card-text">« Je suis le chemin, la vérité et la vie. Nul ne vient au Père que par moi. »</p>
-					<div class="communaute__card-footer">
-						<button class="communaute__card-action">♡ Aimer</button>
-						<button class="communaute__card-action">↩ Répondre</button>
-						<button class="communaute__card-action">→ Lire le chapitre</button>
-					</div>
-				</div>
-
+			<div class="communaute__feed" id="communaute-feed">
+				<p class="communaute__empty">Chargement…</p>
 			</div>
 
 			<!-- Membres -->
@@ -164,7 +147,7 @@
 					<div class="footer__col">
 						<span class="footer__col-title">Communauté</span>
 						<a href="communaute.html" class="footer__link">Rencontrer des gens</a>
-						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link" id="contact-link">Contact</a>
 						<a href="#" class="footer__link">À propos</a>
 					</div>
 					<div class="footer__col">
@@ -181,5 +164,15 @@
 				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
 			</div>
 		</footer>
+
+		<script>
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const voile = document.getElementById('voile');
+					voile.classList.add('voile--hidden');
+					voile.addEventListener('transitionend', () => voile.remove(), { once: true });
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

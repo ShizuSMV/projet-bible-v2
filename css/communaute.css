@@ -307,6 +307,134 @@
   opacity: 0.3;
   margin-top: 2px;
 }
+.communaute__post-form {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background: rgba(212, 175, 55, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.communaute__post-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 6px;
+  color: #fafafa;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  padding: 10px 14px;
+  transition: border-color 0.2s;
+}
+.communaute__post-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+.communaute__post-input:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.6);
+}
+.communaute__post-textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 6px;
+  color: #fafafa;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-style: italic;
+  padding: 10px 14px;
+  min-height: 80px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.communaute__post-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.communaute__post-textarea:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.6);
+}
+.communaute__post-btn {
+  align-self: flex-end;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 4px;
+  color: #d4af37;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.communaute__post-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
+}
+.communaute__post-btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.communaute__card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.communaute__card-date {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  color: #fafafa;
+  opacity: 0.3;
+}
+.communaute__card-comment {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  color: #fafafa;
+  opacity: 0.6;
+  line-height: 1.7;
+  margin: 4px 0 12px;
+}
+.communaute__card-like--active {
+  color: #d4af37;
+  opacity: 1 !important;
+}
+.communaute__empty {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  padding: 24px 0;
+}
+.communaute__toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: #1e1c18;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #d4af37;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  padding: 10px 24px;
+  border-radius: 30px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999;
+  pointer-events: none;
+}
+.communaute__toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.communaute__modale-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .profil-modal-overlay {
   display: none;
@@ -319,6 +447,102 @@
 }
 .profil-modal-overlay--visible {
   opacity: 1;
+}
+
+.report-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.report-overlay--visible {
+  opacity: 1;
+}
+
+.report-box {
+  background: #161410;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 14px;
+  padding: 32px 28px;
+  width: min(360px, 94vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+
+.report-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: rgba(212, 175, 55, 0.5);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.report-close:hover {
+  color: #d4af37;
+}
+
+.report-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.75rem;
+  color: #d4af37;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.report-subtitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  font-style: italic;
+}
+.report-subtitle strong {
+  color: rgba(255, 255, 255, 0.75);
+  font-style: normal;
+}
+
+.report-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.report-select:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.report-submit-btn {
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 4px;
+  color: #d4af37;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background 0.2s;
+}
+.report-submit-btn:hover {
+  background: rgba(212, 175, 55, 0.22);
 }
 
 .profil-modal {
@@ -466,6 +690,47 @@
   opacity: 0.4;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.profil-modal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+.profil-modal__friend-btn {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 20px;
+  color: #d4af37;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.profil-modal__friend-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+}
+.profil-modal__friend-btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.profil-modal__report-user-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.profil-modal__report-user-btn:hover {
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .communaute__cta {

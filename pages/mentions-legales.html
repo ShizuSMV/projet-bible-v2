@@ -16,6 +16,9 @@
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		<!-- VOILE DE CHARGEMENT -->
+		<div id="voile" class="voile" aria-hidden="true"></div>
+
 		<!-- HEADER -->
 		<header class="header">
 			<div id="top"></div>
@@ -68,11 +71,10 @@
 			<h2 class="legal__section-title">Hébergeur</h2>
 			<p class="legal__text">
 				Ce site est hébergé par :<br>
-				<strong>OVH SAS</strong><br>
-				2 rue Kellermann<br>
-				59100 Roubaix — France<br>
-				Tél. : +33 9 72 10 10 07<br>
-				<a href="https://www.ovh.com" target="_blank" rel="noopener">www.ovh.com</a>
+				<strong>Netlify, Inc.</strong><br>
+				44 Montgomery Street, Suite 300<br>
+				San Francisco, CA 94104 — États-Unis<br>
+				<a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a>
 			</p>
 
 			<div class="legal__divider"></div>
@@ -114,5 +116,15 @@
 				<span class="footer__source">Traduction Louis Segond 1910 — domaine public</span>
 			</div>
 		</footer>
+
+		<script>
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					const voile = document.getElementById('voile');
+					voile.classList.add('voile--hidden');
+					voile.addEventListener('transitionend', () => voile.remove(), { once: true });
+				}, 1200);
+			});
+		</script>
 	</body>
 </html>

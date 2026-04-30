@@ -79,6 +79,16 @@
 		}
 	}
 
+	&__subsection-title {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.9rem;
+		color: $color-accent;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin: 24px 0 10px 0;
+		opacity: 0.7;
+	}
+
 	&__list {
 		font-family: "Cormorant Garamond", serif;
 		font-size: 1.05rem;

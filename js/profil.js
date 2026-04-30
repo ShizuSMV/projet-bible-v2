@@ -302,6 +302,158 @@ async function initProfil(user) {
 		})
 	}
 
+	// --- Profile Supabase (ensure + admin check) ---
+	let userProfile = null
+	if (typeof sbEnsureProfile !== 'undefined') {
+		try {
+			userProfile = await sbEnsureProfile(uid, username)
+			if (userProfile?.is_admin) {
+				const adminTab = document.getElementById("profil-admin-tab")
+				if (adminTab) adminTab.style.display = "inline-flex"
+			}
+		} catch { /* ignore */ }
+	}
+
+	// --- Onglets ---
+	document.querySelectorAll(".profil__tab").forEach(tab => {
+		tab.addEventListener("click", () => {
+			document.querySelectorAll(".profil__tab").forEach(t => t.classList.remove("profil__tab--active"))
+			document.querySelectorAll(".profil__tab-panel").forEach(p => p.classList.remove("profil__tab-panel--active"))
+			tab.classList.add("profil__tab--active")
+			document.getElementById("panel-" + tab.dataset.tab)?.classList.add("profil__tab-panel--active")
+			if (!tab.dataset.loaded) {
+				tab.dataset.loaded = "1"
+				if (tab.dataset.tab === "posts") loadPostsTab()
+				if (tab.dataset.tab === "amis")  loadAmisTab()
+				if (tab.dataset.tab === "admin") loadAdminTab()
+			}
+		})
+	})
+
+	async function loadPostsTab() {
+		const container = document.getElementById("profil-posts")
+		if (!container || typeof sbGetUserPosts === 'undefined') return
+		const userPosts = await sbGetUserPosts(uid)
+		if (!userPosts.length) { container.innerHTML = `<p class="profil__empty">Aucun post partagé pour l'instant.</p>`; return }
+		container.innerHTML = ""
+		userPosts.forEach(post => {
+			const date = new Date(post.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })
+			const card = document.createElement("div")
+			card.className = "profil__post-card"
+			card.innerHTML = `
+				${post.verse_ref  ? `<span class="profil__post-ref">${post.verse_ref}</span>` : ""}
+				${post.verse_text ? `<p class="profil__post-text">« ${post.verse_text} »</p>` : ""}
+				${post.content    ? `<p class="profil__post-comment">${post.content}</p>` : ""}
+				<div class="profil__post-footer">
+					<span class="profil__post-date">${date}</span>
+					<span class="profil__post-likes">♡ ${post.likes_count || 0}</span>
+					<button class="profil__post-delete" data-id="${post.id}">Supprimer</button>
+				</div>`
+			card.querySelector(".profil__post-delete")?.addEventListener("click", async function () {
+				if (!confirm("Supprimer ce post ?")) return
+				await sbDeletePost(this.dataset.id)
+				card.remove()
+				if (!container.children.length) container.innerHTML = `<p class="profil__empty">Aucun post partagé pour l'instant.</p>`
+			})
+			container.appendChild(card)
+		})
+	}
+
+	async function loadAmisTab() {
+		const requestsContainer = document.getElementById("friend-requests")
+		const requestsWrap      = document.getElementById("friend-requests-wrap")
+		const friendsContainer  = document.getElementById("profil-friends")
+		if (!friendsContainer || typeof sbGetPendingRequests === 'undefined') return
+
+		const [requests, friends] = await Promise.all([sbGetPendingRequests(uid), sbGetFriends(uid)])
+
+		if (requests.length && requestsContainer) {
+			requestsWrap.style.display = "block"
+			requestsContainer.innerHTML = ""
+			const requesterIds = requests.map(r => r.requester_id)
+			const profiles = await sbGetProfilesByIds(requesterIds)
+			const profileMap = Object.fromEntries(profiles.map(p => [p.user_id, p.username]))
+			requests.forEach(req => {
+				const rUsername = profileMap[req.requester_id] || req.requester_id
+				const item = document.createElement("div")
+				item.className = "profil__friend-request"
+				item.innerHTML = `
+					<span class="profil__friend-name">${rUsername}</span>
+					<div class="profil__friend-btns">
+						<button class="profil__friend-accept" data-requester="${req.requester_id}">Accepter</button>
+						<button class="profil__friend-reject" data-requester="${req.requester_id}">Refuser</button>
+					</div>`
+				item.querySelector(".profil__friend-accept")?.addEventListener("click", async function () {
+					await sbAcceptFriend(this.dataset.requester, uid)
+					item.remove()
+					if (!requestsContainer.children.length) requestsWrap.style.display = "none"
+					loadAmisTab()
+				})
+				item.querySelector(".profil__friend-reject")?.addEventListener("click", async function () {
+					await sbRejectFriend(this.dataset.requester, uid)
+					item.remove()
+					if (!requestsContainer.children.length) requestsWrap.style.display = "none"
+				})
+				requestsContainer.appendChild(item)
+			})
+		}
+
+		if (friends.length && friendsContainer) {
+			friendsContainer.innerHTML = ""
+			const friendIds = friends.map(f => f.requester_id === uid ? f.addressee_id : f.requester_id)
+			const profiles  = await sbGetProfilesByIds(friendIds)
+			const profileMap = Object.fromEntries(profiles.map(p => [p.user_id, p.username]))
+			friends.forEach(f => {
+				const friendId   = f.requester_id === uid ? f.addressee_id : f.requester_id
+				const fUsername  = profileMap[friendId] || friendId
+				const photo      = localStorage.getItem(`lpd_photo_${friendId}`)
+				const item       = document.createElement("div")
+				item.className   = "profil__friend-item"
+				const avatarHtml = photo
+					? `<div class="profil__friend-avatar" style="background-image:url(${photo});background-size:cover;background-position:center;"></div>`
+					: `<div class="profil__friend-avatar">${fUsername.charAt(0).toUpperCase()}</div>`
+				item.innerHTML = `${avatarHtml}<span class="profil__friend-name">${fUsername}</span>`
+				friendsContainer.appendChild(item)
+			})
+		}
+	}
+
+	async function loadAdminTab() {
+		const container = document.getElementById("admin-reports")
+		if (!container || !userProfile?.is_admin || typeof sbGetReports === 'undefined') return
+		const reports = await sbGetReports()
+		if (!reports.length) { container.innerHTML = `<p class="profil__empty">Aucun signalement en attente.</p>`; return }
+		container.innerHTML = ""
+		reports.forEach(report => {
+			const date = new Date(report.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "short" })
+			const item = document.createElement("div")
+			item.className = "profil__report-item"
+			item.innerHTML = `
+				<div class="profil__report-header">
+					<span class="profil__report-type">${report.reported_type === "post" ? "Post" : "Compte"}</span>
+					<span class="profil__report-date">${date}</span>
+				</div>
+				<p class="profil__report-user">Signalé : <strong>${report.reported_username || report.reported_id}</strong></p>
+				<p class="profil__report-reason">Raison : ${report.reason}</p>
+				<div class="profil__report-actions">
+					<button class="profil__report-resolve" data-id="${report.id}">Résoudre</button>
+					${report.reported_type === "post" ? `<button class="profil__report-del-post" data-post-id="${report.reported_id}" data-report-id="${report.id}">Supprimer le post</button>` : ""}
+				</div>`
+			const remove = () => {
+				item.remove()
+				if (!container.children.length) container.innerHTML = `<p class="profil__empty">Aucun signalement en attente.</p>`
+			}
+			item.querySelector(".profil__report-resolve")?.addEventListener("click", async function () {
+				await sbResolveReport(this.dataset.id); remove()
+			})
+			item.querySelector(".profil__report-del-post")?.addEventListener("click", async function () {
+				if (!confirm("Supprimer ce post définitivement ?")) return
+				await Promise.all([sbDeletePost(this.dataset.postId), sbResolveReport(this.dataset.reportId)]); remove()
+			})
+			container.appendChild(item)
+		})
+	}
+
 	// --- Statistiques & Favoris (Supabase) ---
 	const streakEl  = document.getElementById("stat-streak")
 	const versetsEl = document.getElementById("stat-versets")

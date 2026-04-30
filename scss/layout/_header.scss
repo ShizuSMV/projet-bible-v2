@@ -18,13 +18,13 @@
 	&::after {
 		content: "";
 		position: absolute;
-		bottom: 0;
+		bottom: -1px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 80%;
+		width: 100%;
 		height: 2px;
-		background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, rgba(212, 175, 55, 0.8) 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%);
-		box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+		background: rgba(250, 250, 250, 0.25);
+		box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 14px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.3);
 	}
 
 	// --- Logo / Croix ---

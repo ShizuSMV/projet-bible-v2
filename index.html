@@ -17,6 +17,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
 		<script src="js/modale.js" defer></script>
+		<script src="js/contact.js" defer></script>
 		<script src="js/search.js" defer></script>
 		<script src="js/verset-du-jour.js" defer></script>
 		<script src="js/accordion.js" defer></script>
@@ -62,6 +63,23 @@
 			</nav>
 		</header>
 
+		<!-- Modale contact -->
+		<section id="contact-section" class="contact-section">
+			<button type="button" class="account-close" id="contact-close-btn" aria-label="Fermer">✕</button>
+			<div class="modale-welcome-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+				</svg>
+			</div>
+			<div class="modale-header" style="text-align:center;align-items:center;">
+				<p class="modale-eyebrow">Contact</p>
+				<h2 class="modale-title">Nous écrire</h2>
+				<p class="modale-subtitle">Une question ? Une suggestion ?</p>
+			</div>
+			<div class="modale-divider"></div>
+			<a href="mailto:matteo.vandevraye@hotmail.fr" class="contact-section__email">matteo.vandevraye@hotmail.fr</a>
+		</section>
+
 		<!-- Modale compte -->
 		<section id="account-section" class="account-section">
 			<button type="button" class="account-close" id="account-close-btn" aria-label="Fermer">✕</button>
@@ -90,21 +108,10 @@
 				</blockquote>
 			</section>
 
-			<section class="main__section-intro">
-				<p class="main__intro-stats">
-					<span class="main__intro-stat">
-						<span class="main__intro-number">39</span>
-						<span class="main__intro-label">livres — Ancien Testament</span>
-					</span>
-					<span class="main__intro-sep">•</span>
-					<span class="main__intro-stat">
-						<span class="main__intro-number">27</span>
-						<span class="main__intro-label">livres — Nouveau Testament</span>
-					</span>
-				</p>
-			</section>
-
 			<section id="livres" class="main__section-books">
+				<p class="main__books-intro">Cliquez sur l'un des deux Testaments pour explorer ses livres</p>
+
+				<div class="main__books-row">
 				<!-- Ancien Testament -->
 				<details class="main__books-accordion" id="ancien-testament">
 					<summary class="main__books-h2">Ancien Testament</summary>
@@ -124,6 +131,19 @@
 					<a class="main__books-h3" href="pages/categorie.html?cat=%C3%89p%C3%AEtres%20g%C3%A9n%C3%A9rales&testament=Nouveau%20Testament">Épîtres générales</a>
 					<a class="main__books-h3" href="pages/categorie.html?cat=Proph%C3%A9tie&testament=Nouveau%20Testament">Prophétie</a>
 				</details>
+				</div>
+
+				<p class="main__intro-stats">
+					<span class="main__intro-stat">
+						<span class="main__intro-number">39</span>
+						<span class="main__intro-label">livres — Ancien Testament</span>
+					</span>
+					<span class="main__intro-sep">•</span>
+					<span class="main__intro-stat">
+						<span class="main__intro-number">27</span>
+						<span class="main__intro-label">livres — Nouveau Testament</span>
+					</span>
+				</p>
 			</section>
 
 			<section class="main__section-communaute">
@@ -155,7 +175,7 @@
 
 					<div class="footer__col">
 						<span class="footer__col-title">Communauté</span>
-						<a href="#" class="footer__link">Contact</a>
+						<a href="#" class="footer__link" id="contact-link">Contact</a>
 						<a href="#" class="footer__link">À propos</a>
 					</div>
 
