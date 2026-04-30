@@ -305,9 +305,9 @@ body {
 }
 .footer__top {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 32px;
   width: 100%;
 }
@@ -316,6 +316,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
   gap: 40px;
 }
 .footer__col {
