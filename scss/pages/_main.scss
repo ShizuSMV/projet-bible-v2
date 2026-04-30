@@ -27,19 +27,20 @@
 
 	&__intro-stats {
 		@include flex-custom(row, center, center);
-		gap: 30px;
+		gap: 16px;
 		margin: 0;
+		opacity: 0.55;
 	}
 
 	&__intro-stat {
-		@include flex-custom(column, center, center);
-		gap: 4px;
+		@include flex-custom(row, center, center);
+		gap: 5px;
 		text-align: center;
 	}
 
 	&__intro-number {
-		font-family: "Cinzel Decorative", serif;
-		font-size: 1.5rem;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.8rem;
 		color: $color-accent;
 		font-weight: 700;
 		line-height: 1;
@@ -47,13 +48,13 @@
 
 	&__intro-label {
 		font-family: "Cormorant Garamond", serif;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		color: $color-soft;
 		opacity: 0.7;
 	}
 
 	&__intro-sep {
-		font-size: 2rem;
+		font-size: 1rem;
 		color: $color-accent;
 		align-self: center;
 	}
