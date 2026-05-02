@@ -59,19 +59,30 @@ aproposSection.innerHTML = `
 	<button type="button" class="account-close" id="apropos-close-btn" aria-label="Fermer">✕</button>
 	<div class="modale-welcome-icon" aria-hidden="true">
 		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-			<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+			<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
 		</svg>
 	</div>
 	<div class="modale-header">
 		<p class="modale-eyebrow">À propos</p>
 		<h2 class="modale-title">La Parole de Dieu</h2>
+		<p class="modale-subtitle">Un projet né d'une conviction</p>
 	</div>
 	<div class="modale-divider"></div>
-	<p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,.78);line-height:1.75;text-align:center;padding:0 8px;margin:0 0 18px;">
-		Je suis un étudiant, né le 03/03/2003, et j'ai pour but de partager librement et facilement la Parole, tout en échangeant à son sujet.<br>Tout le monde est le bienvenu — sauf le mal.
-	</p>
-	<p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#d4af37;font-style:italic;text-align:center;opacity:.85;margin:0;">
-		« Aimez-vous les uns les autres, car Dieu nous a aimés. »
+	<div style="display:flex;flex-direction:column;gap:16px;text-align:center;padding:0 4px;">
+		<p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:rgba(255,255,255,.82);line-height:1.9;">
+			Né le 3 mars 2003, je suis un étudiant animé par un désir profond : rendre la Parole de Dieu accessible à chacun, sans frontière ni complexité.
+		</p>
+		<p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,.55);line-height:1.85;">
+			Ce site est un espace de lecture, de partage et de rencontre — un lieu où l'on peut explorer les Écritures à son propre rythme, échanger avec d'autres croyants et grandir ensemble dans la foi.
+		</p>
+		<p style="font-family:'Cormorant Garamond',serif;font-size:0.88rem;color:rgba(255,255,255,.3);letter-spacing:0.08em;text-transform:uppercase;">
+			Tout le monde est le bienvenu. Sauf le mal.
+		</p>
+	</div>
+	<div style="height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.2),transparent);margin:20px 0 16px;"></div>
+	<p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#d4af37;font-style:italic;text-align:center;line-height:1.6;opacity:.9;">
+		« Aimez-vous les uns les autres,<br>comme je vous ai aimés. »<br>
+		<span style="font-size:0.78rem;opacity:.6;font-style:normal;letter-spacing:0.1em;">— Jean 13:34</span>
 	</p>
 `
 document.body.appendChild(aproposSection)
