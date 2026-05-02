@@ -33,7 +33,7 @@
 	}
 
 	&__intro-stat {
-		@include flex-custom(row, center, center);
+		@include flex-custom(column, center, center);
 		gap: 5px;
 		text-align: center;
 	}
