@@ -204,6 +204,7 @@ async function initProfil(user) {
 				bannerEl.style.backgroundImage = `url(${dataUrl})`
 				bannerEl.style.backgroundSize = "cover"
 				bannerEl.style.backgroundPosition = "center"
+				if (typeof sbUploadBanner !== 'undefined') sbUploadBanner(uid, dataUrl)
 			})
 			bannerInput.value = ""
 		})
@@ -239,6 +240,7 @@ async function initProfil(user) {
 				avatarEl.style.backgroundSize = "cover"
 				avatarEl.style.backgroundPosition = "center"
 				avatarEl.textContent = ""
+				if (typeof sbUploadAvatar !== 'undefined') sbUploadAvatar(uid, dataUrl)
 			})
 			photoInput.value = ""
 		})
@@ -292,8 +294,8 @@ async function initProfil(user) {
 			const newBio = bioTextarea.value.trim()
 			currentBio = newBio
 			localStorage.setItem(`lpd_bio_${uid}`, newBio)
-			// Sync bio to Netlify Identity metadata
 			window.netlifyIdentity?.currentUser()?.update({ data: { bio: newBio } })
+			if (typeof sbUpdateBio !== 'undefined') sbUpdateBio(uid, newBio)
 			bioEl.innerText = newBio || "Aucune bio pour l'instant."
 			bioTextarea.style.display = "none"
 			bioActions.style.display = "none"
@@ -310,6 +312,19 @@ async function initProfil(user) {
 			if (userProfile?.is_admin) {
 				const adminTab = document.getElementById("profil-admin-tab")
 				if (adminTab) adminTab.style.display = "inline-flex"
+			}
+			if (userProfile?.avatar_url && avatarEl) {
+				avatarEl.style.backgroundImage = `url(${userProfile.avatar_url})`
+				avatarEl.style.backgroundSize = "cover"
+				avatarEl.style.backgroundPosition = "center"
+				avatarEl.textContent = ""
+				localStorage.setItem(`lpd_photo_${uid}`, userProfile.avatar_url)
+			}
+			if (userProfile?.banner_url && bannerEl) {
+				bannerEl.style.backgroundImage = `url(${userProfile.banner_url})`
+				bannerEl.style.backgroundSize = "cover"
+				bannerEl.style.backgroundPosition = "center"
+				localStorage.setItem(`lpd_banner_${uid}`, userProfile.banner_url)
 			}
 		} catch { /* ignore */ }
 	}
@@ -430,14 +445,14 @@ async function initProfil(user) {
 			item.className = "profil__report-item"
 			item.innerHTML = `
 				<div class="profil__report-header">
-					<span class="profil__report-type">${report.reported_type === "post" ? "Post" : "Compte"}</span>
+					<span class="profil__report-type">${report.type === "post" ? "Post" : "Compte"}</span>
 					<span class="profil__report-date">${date}</span>
 				</div>
-				<p class="profil__report-user">Signalé : <strong>${report.reported_username || report.reported_id}</strong></p>
+				<p class="profil__report-user">Signalé : <strong>${report.target_username || report.target_id}</strong></p>
 				<p class="profil__report-reason">Raison : ${report.reason}</p>
 				<div class="profil__report-actions">
 					<button class="profil__report-resolve" data-id="${report.id}">Résoudre</button>
-					${report.reported_type === "post" ? `<button class="profil__report-del-post" data-post-id="${report.reported_id}" data-report-id="${report.id}">Supprimer le post</button>` : ""}
+					${report.type === "post" ? `<button class="profil__report-del-post" data-post-id="${report.target_id}" data-report-id="${report.id}">Supprimer le post</button>` : ""}
 				</div>`
 			const remove = () => {
 				item.remove()

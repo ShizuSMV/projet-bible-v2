@@ -110,8 +110,9 @@ async function sbGetProfilesByIds(ids) {
 
 // --- Posts ---
 
-async function sbGetPosts(limit = 40) {
-	const { data } = await _db().from('posts').select('*').order('created_at', { ascending: false }).limit(limit)
+async function sbGetPosts(page = 0, perPage = 10) {
+	const from = page * perPage
+	const { data } = await _db().from('posts').select('*').order('created_at', { ascending: false }).range(from, from + perPage - 1)
 	return data || []
 }
 
@@ -191,8 +192,8 @@ async function sbRejectFriend(requesterId, addresseeId) {
 
 async function sbReport({ reporterId, type, id, username, reason }) {
 	await _db().from('reports').insert({
-		reporter_id: reporterId, reported_type: type,
-		reported_id: id, reported_username: username || null, reason
+		reporter_id: reporterId, type,
+		target_id: id, target_username: username || null, reason
 	})
 }
 
@@ -203,4 +204,30 @@ async function sbGetReports() {
 
 async function sbResolveReport(reportId) {
 	await _db().from('reports').update({ status: 'resolved' }).eq('id', reportId)
+}
+
+async function sbUpdateBio(uid, bio) {
+	await _db().from('profiles').update({ bio }).eq('user_id', uid)
+}
+
+async function sbUploadAvatar(uid, dataUrl) {
+	try {
+		const blob = await fetch(dataUrl).then(r => r.blob())
+		const { error } = await _db().storage.from('avatars').upload(`${uid}.jpg`, blob, { upsert: true, contentType: 'image/jpeg' })
+		if (error) return null
+		const { data } = _db().storage.from('avatars').getPublicUrl(`${uid}.jpg`)
+		await _db().from('profiles').update({ avatar_url: data.publicUrl }).eq('user_id', uid)
+		return data.publicUrl
+	} catch { return null }
+}
+
+async function sbUploadBanner(uid, dataUrl) {
+	try {
+		const blob = await fetch(dataUrl).then(r => r.blob())
+		const { error } = await _db().storage.from('avatars').upload(`banner_${uid}.jpg`, blob, { upsert: true, contentType: 'image/jpeg' })
+		if (error) return null
+		const { data } = _db().storage.from('avatars').getPublicUrl(`banner_${uid}.jpg`)
+		await _db().from('profiles').update({ banner_url: data.publicUrl }).eq('user_id', uid)
+		return data.publicUrl
+	} catch { return null }
 }

@@ -787,4 +787,36 @@
 			box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
 		}
 	}
+
+	&__pagination {
+		@include flex-custom(row, space-between, center);
+		padding: 28px 0 4px;
+		gap: 12px;
+	}
+
+	&__page-btn {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.95rem;
+		color: $color-accent;
+		background: transparent;
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		padding: 8px 22px;
+		border-radius: 2px;
+		cursor: pointer;
+		letter-spacing: 0.06em;
+		transition: border-color 0.2s, background 0.2s;
+
+		&:hover {
+			border-color: $color-accent;
+			background: rgba(212, 175, 55, 0.06);
+		}
+	}
+
+	&__page-info {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.8rem;
+		color: $color-soft;
+		opacity: 0.35;
+		letter-spacing: 0.1em;
+	}
 }

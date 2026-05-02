@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 	let currentUser  = null
 	let likedPostIds = []
 	let posts        = []
+	let currentPage  = 0
+	const PER_PAGE   = 10
+	let hasMore      = true
 
 	function escHtml(str) {
 		return String(str ?? "")
@@ -32,9 +35,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	// ─── Feed ──────────────────────────────────────────────────
-	async function loadFeed() {
-		posts = await sbGetPosts(40)
+	async function loadFeed(page = 0) {
+		posts = await sbGetPosts(page, PER_PAGE)
+		currentPage = page
+		hasMore = posts.length === PER_PAGE
 		renderFeed()
+		window.scrollTo({ top: document.getElementById("communaute-feed")?.offsetTop - 80 || 0, behavior: "smooth" })
 	}
 
 	function renderFeed() {
@@ -75,6 +81,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 				</div>`
 			feed.appendChild(card)
 		})
+		const pag = document.createElement("div")
+		pag.className = "communaute__pagination"
+		pag.innerHTML = `
+			${currentPage > 0 ? `<button class="communaute__page-btn" id="page-prev">← Précédents</button>` : `<span></span>`}
+			<span class="communaute__page-info">Page ${currentPage + 1}</span>
+			${hasMore ? `<button class="communaute__page-btn" id="page-next">Suivants →</button>` : `<span></span>`}
+		`
+		feed.appendChild(pag)
+		document.getElementById("page-prev")?.addEventListener("click", () => loadFeed(currentPage - 1))
+		document.getElementById("page-next")?.addEventListener("click", () => loadFeed(currentPage + 1))
 	}
 
 	document.getElementById("communaute-feed")?.addEventListener("click", async e => {
@@ -206,9 +222,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	async function openProfilModal(member) {
 		const key        = member.user_id
-		const photo      = localStorage.getItem(`lpd_photo_${key}`)
-		const banner     = localStorage.getItem(`lpd_banner_${key}`)
-		const bio        = localStorage.getItem(`lpd_bio_${key}`) || "Aucune bio."
+		const photo      = member.avatar_url || localStorage.getItem(`lpd_photo_${key}`)
+		const banner     = member.banner_url || localStorage.getItem(`lpd_banner_${key}`)
+		const bio        = member.bio || localStorage.getItem(`lpd_bio_${key}`) || "Aucune bio."
 		const streak     = parseInt(localStorage.getItem(`lpd_streak_${key}`) || "0")
 		const streakMax  = parseInt(localStorage.getItem(`lpd_streak_max_${key}`) || streak)
 		const since      = member.created_at
@@ -272,8 +288,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	function buildCard(member) {
 		const key      = member.user_id
-		const photo    = localStorage.getItem(`lpd_photo_${key}`)
-		const banner   = localStorage.getItem(`lpd_banner_${key}`)
+		const photo    = member.avatar_url || localStorage.getItem(`lpd_photo_${key}`)
+		const banner   = member.banner_url || localStorage.getItem(`lpd_banner_${key}`)
 		const initial  = member.username.charAt(0).toUpperCase()
 		const streak   = parseInt(localStorage.getItem(`lpd_streak_${key}`) || "0")
 		const streakMax= parseInt(localStorage.getItem(`lpd_streak_max_${key}`) || streak)
