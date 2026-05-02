@@ -385,7 +385,7 @@
 	&__books-h3 {
 		@include flex-custom(row, center, center);
 		@include size(auto, 60px);
-		text-align: left;
+		text-align: center;
 		font-family: "Cormorant Garamond", serif;
 		font-size: 0.75rem;
 		font-weight: 500;
