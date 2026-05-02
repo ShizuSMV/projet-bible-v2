@@ -67,7 +67,7 @@ function resetAccountModal() {
 				<path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
 			</svg>
 		</div>
-		<div class="modale-header" style="text-align:center;align-items:center;">
+		<div class="modale-header">
 			<p class="modale-eyebrow">Espace personnel</p>
 			<h2 class="modale-title">La Parole de Dieu</h2>
 			<p class="modale-subtitle">Connectez-vous ou créez un compte</p>
