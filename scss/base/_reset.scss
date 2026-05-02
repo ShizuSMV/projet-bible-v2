@@ -23,6 +23,7 @@ body {
 	color: $color-soft;
 	line-height: 1.6;
 	min-height: 100vh;
+	overflow-x: hidden;
 	transition:
 		background $transition,
 		color $transition,

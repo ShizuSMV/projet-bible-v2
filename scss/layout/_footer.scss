@@ -27,9 +27,9 @@
 	}
 
 	&__col {
-		@include flex-custom(column, flex-start, flex-start);
+		@include flex-custom(column, flex-start, center);
 		gap: 10px;
-		text-align: left;
+		text-align: center;
 		min-width: 100px;
 	}
 
@@ -44,9 +44,9 @@
 	}
 
 	&__brand {
-		@include flex-custom(column, flex-start, flex-start);
+		@include flex-custom(column, flex-start, center);
 		gap: 6px;
-		text-align: left;
+		text-align: center;
 	}
 
 	&__brand-name {
