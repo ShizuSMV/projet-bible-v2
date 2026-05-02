@@ -31,5 +31,7 @@ body {
 }
 
 #top {
-	display: none;
+	display: block;
+	height: 0;
+	visibility: hidden;
 }
