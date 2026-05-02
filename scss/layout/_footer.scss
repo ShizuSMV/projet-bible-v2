@@ -23,14 +23,15 @@
 	&__columns {
 		@include flex-custom(row, space-between, flex-start);
 		width: 100%;
-		gap: 40px;
+		gap: 4%;
 	}
 
 	&__col {
 		@include flex-custom(column, flex-start, center);
+		flex: 1;
+		min-width: 0;
 		gap: 10px;
 		text-align: center;
-		min-width: 100px;
 	}
 
 	&__col-title {
